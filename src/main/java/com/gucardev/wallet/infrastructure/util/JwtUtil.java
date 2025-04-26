@@ -25,7 +25,7 @@ public class JwtUtil {
     @Value("${app-specific-configs.security.jwt.secret-key}")
     private String secretKey;
 
-    @Value("${app-specific-configs.security.jwt.validity-in-minutes}")
+    @Value("${app-specific-configs.security.jwt.token-validity-in-minutes}")
     private Integer expiration;
 
     private static final Duration ETERNAL_VALIDITY = Duration.ofDays(9999); // Practically eternal

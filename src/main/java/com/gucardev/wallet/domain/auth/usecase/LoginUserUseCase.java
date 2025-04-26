@@ -4,10 +4,8 @@ import com.gucardev.wallet.domain.auth.helper.ExtractAuthenticatedUserUseCase;
 import com.gucardev.wallet.domain.auth.model.dto.LoginRequest;
 import com.gucardev.wallet.domain.auth.model.dto.TokenDto;
 import com.gucardev.wallet.domain.user.entity.User;
-import com.gucardev.wallet.domain.user.mapper.UserMapper;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParamsAndReturn;
-import com.gucardev.wallet.infrastructure.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.Optional;
 
 import static com.gucardev.wallet.infrastructure.exception.ExceptionMessage.ACCESS_DENIED_EXCEPTION;
@@ -28,10 +25,9 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 public class LoginUserUseCase implements UseCaseWithParamsAndReturn<LoginRequest, TokenDto> {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtUtil jwtUtil;
     private final GetUserByEmailUseCase getUserByEmailUseCase;
-    private final UserMapper userMapper;
     private final ExtractAuthenticatedUserUseCase extractAuthenticatedUserUseCase;
+    private final GenerateTokenTokenUseCase generateTokenTokenUseCase;
 
     @Override
     public TokenDto execute(LoginRequest params) {
@@ -44,23 +40,14 @@ public class LoginUserUseCase implements UseCaseWithParamsAndReturn<LoginRequest
             // Extract user details
             User user = extractAuthenticatedUserUseCase.execute(authentication);
 
-            // Generate JWT token with user roles
-            String tokenString = jwtUtil.generateToken(
-                    user.getEmail(),
-                    Map.of("roles", user.getRoles())
-            );
-
-            // Build and return response
-            return TokenDto.builder()
-                    .accessToken(tokenString)
-                    .user(userMapper.toDto(user))
-                    .build();
+            return generateTokenTokenUseCase.execute(user);
 
         } catch (Exception ex) {
             handleLoginFailure(email, ex);
             return null; // This line is never reached due to exception throwing
         }
     }
+
 
     private void handleLoginFailure(String email, Exception ex) {
         // Check if user exists

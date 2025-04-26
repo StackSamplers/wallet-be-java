@@ -63,7 +63,8 @@ app-specific-configs:
   security:
     jwt:
       secret-key: ${APP_JWT_SECRET_KEY}
-      validity-in-minutes: 60
+      refresh-token-validity-in-minutes: 90
+      token-validity-in-minutes: 60
     encryption:
       secret: ${APP_ENC_SECRET}
   api:
