@@ -5,6 +5,7 @@ import com.gucardev.wallet.infrastructure.exception.helper.BaseExceptionHandler;
 import com.gucardev.wallet.infrastructure.exception.model.ClientRequestException;
 import com.gucardev.wallet.infrastructure.exception.model.CustomException;
 import com.gucardev.wallet.infrastructure.exception.model.ExceptionResponse;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.PersistenceException;
 import jakarta.validation.ConstraintViolationException;
@@ -55,6 +56,13 @@ public class GlobalBaseExceptionHandler extends BaseExceptionHandler {
         log.warn("Resource not found: {}", exception.getMessage());
         HttpStatus status = HttpStatus.NOT_FOUND;
         return this.buildErrorResponse(exception.getMessage(), status, request, ExceptionMessage.NOT_FOUND_EXCEPTION.getBusinessErrorCode());
+    }
+
+    @ExceptionHandler({RequestNotPermitted.class})
+    public ResponseEntity<ExceptionResponse> requestNotPermittedException(RequestNotPermitted exception, WebRequest request) {
+        log.warn("request not permitted, too many requests: {}", exception.getMessage());
+        HttpStatus status = HttpStatus.TOO_MANY_REQUESTS;
+        return this.buildErrorResponse(exception.getMessage(), status, request, ExceptionMessage.TOO_MANY_REQUESTS_EXCEPTION.getBusinessErrorCode());
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})

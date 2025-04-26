@@ -63,14 +63,12 @@ logging:
   level:
     root: info
 
-# rate limiter
-resilience4j:
-  ratelimiter:
-    instances:
-      auth:
-        limit-for-period: 2
-        limit-refresh-period: 10s
-        timeout-duration: 5s
+resilience4j.ratelimiter:
+  instances:
+    loginRateLimiter:
+      limitForPeriod: 5
+      limitRefreshPeriod: 1m
+      timeoutDuration: 0
 
 # Application-specific configuration
 app-specific-configs:

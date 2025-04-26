@@ -5,15 +5,17 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginRequest {
 
     @Schema(
-            description = "user name",
-            example = "customer1@mail.com",
+            description = "email",
+            example = "johndoe@example.com",
             type = "string"
     )
     @NotBlank
