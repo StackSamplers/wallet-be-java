@@ -1,0 +1,26 @@
+package com.gucardev.wallet.domain.account.model.dto;
+
+
+import com.gucardev.wallet.domain.account.enumeration.AccountType;
+import com.gucardev.wallet.domain.shared.model.dto.BaseDto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class AccountDto extends BaseDto {
+
+    private Long id;
+    private String accountNumber;
+    private BigDecimal balance;
+    private AccountType accountType;
+    private Long userId;
+
+}

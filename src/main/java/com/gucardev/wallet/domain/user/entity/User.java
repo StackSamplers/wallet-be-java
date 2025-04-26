@@ -1,5 +1,6 @@
 package com.gucardev.wallet.domain.user.entity;
 
+import com.gucardev.wallet.domain.account.entity.Account;
 import com.gucardev.wallet.domain.shared.entity.BaseEntity;
 import com.gucardev.wallet.domain.user.enumeration.Role;
 import jakarta.persistence.*;
@@ -7,9 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,5 +38,8 @@ public class User extends BaseEntity {
     public Boolean getActivated() {
         return activated != null && activated;
     }
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Account account;
 
 }

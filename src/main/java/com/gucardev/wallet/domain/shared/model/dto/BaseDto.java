@@ -14,7 +14,6 @@ public class BaseDto {
     //    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     private LocalDateTime createdDate;
 
-    //    @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     private LocalDateTime lastModifiedDate;
 
     private String createdBy;

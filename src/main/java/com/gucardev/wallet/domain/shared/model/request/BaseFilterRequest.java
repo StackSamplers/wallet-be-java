@@ -23,12 +23,12 @@ public class BaseFilterRequest {
     @Max(99999)
     private int page = 0;
 
-    @Schema(description = "Number of records per page", example = "10")
+    @Schema(description = "Number of records per page", example = "30")
     @NotNull
     @Min(1)
     @Max(150)
     @Positive
-    private int size = 10;
+    private int size = 30;
 
     @Schema(description = "Sort direction", example = "desc", allowableValues = {"asc", "desc"})
     @Pattern(regexp = "^(asc|desc)$", message = "{sort.direction.pattern.exception}")

@@ -3,7 +3,6 @@ package com.gucardev.wallet.infrastructure.config.feign;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.apache.coyote.BadRequestException;
-import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 
@@ -29,7 +28,7 @@ public class FeignErrorDecoderConfig {
             } else if (response.status() == 403) {
                 return new AuthorizationDeniedException("Unauthorized access");
             } else if (response.status() == 404) {
-                return new ResourceNotFoundException("Resource not found");
+                return new RuntimeException("Resource not found");
             } else if (response.status() >= 500) {
                 return new ServiceUnavailableException("Service unavailable");
             }

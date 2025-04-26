@@ -35,9 +35,10 @@ public class AopLoggingHandler {
                     " within(@org.springframework.stereotype.Service *) || " +
                     " within(@org.springframework.stereotype.Repository *) || " +
                     " within(@org.springframework.stereotype.Controller *)) " +
-                    " && !@within(com.gucardev.springbootstartertemplate.infrastructure.annotation.ExcludeFromAspect)"
+                    " && !@within(" + BASE_PACKAGE + ".infrastructure.annotation.ExcludeFromAspect)"
     )
-    public void applicationPackagePointcut() {}
+    public void applicationPackagePointcut() {
+    }
 
     @AfterThrowing(pointcut = "applicationPackagePointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint jp, Throwable e) {
