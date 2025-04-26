@@ -1,0 +1,1 @@
+package com.gucardev.wallet.domain.user.repository;

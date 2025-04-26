@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    com.gucardev: info
+    org.hibernate.SQL: info
+    org.springframework.web: info
+
+springdoc:
+  swagger-ui:
+    enabled: false
+

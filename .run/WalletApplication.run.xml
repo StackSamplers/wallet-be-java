@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="WalletApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="APP_ENC_SECRET" value="m1ZZ7ywfEN1aAQJpAW4uUg==" />
+      <env name="APP_JWT_SECRET_KEY" value="8e8901fe01244c7d70f6c9225422664d2y4209fb0b0d30a1400fc3069171ed63b935d9ca98d4146d9ab5fffccb76300d23d412f9d07ec7051bbd1ed4dc8b893f" />
+      <env name="DB_PASSWORD" value="pass" />
+      <env name="DB_URL" value="jdbc:mysql://localhost:3306/wallet?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Europe/Istanbul" />
+      <env name="DB_USERNAME" value="root" />
+    </envs>
+    <module name="wallet" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.gucardev.wallet.WalletApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

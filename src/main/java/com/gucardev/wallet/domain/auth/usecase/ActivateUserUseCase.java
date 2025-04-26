@@ -1,0 +1,40 @@
+package com.gucardev.wallet.domain.auth.usecase;
+
+import com.gucardev.wallet.domain.auth.enumeration.OtpType;
+import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
+import com.gucardev.wallet.domain.auth.usecase.otp.ValidateOtpUseCase;
+import com.gucardev.wallet.domain.user.repository.UserRepository;
+import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
+import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
+import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParams;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ActivateUserUseCase implements UseCaseWithParams<ValidateOtpRequest> {
+
+    private final ValidateOtpUseCase validateOtpUseCase;
+    private final GetUserByEmailUseCase getUserByEmailUseCase;
+    private final UserRepository userRepository;
+
+    @Override
+    public void execute(ValidateOtpRequest params) {
+        String email = params.getEmail();
+        params.setType(OtpType.REGISTER_EMAIL_VERIFICATION);
+
+        if (!validateOtpUseCase.execute(params)) {
+            throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);
+        }
+
+        var user = getUserByEmailUseCase.execute(email)
+                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION));
+
+        user.setActivated(true);
+        userRepository.save(user);
+    }
+}
