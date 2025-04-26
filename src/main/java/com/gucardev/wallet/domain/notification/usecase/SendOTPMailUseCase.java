@@ -24,6 +24,6 @@ public class SendOTPMailUseCase implements UseCaseWithParams<OtpEmailRequest> {
         Map<String, Object> model = new HashMap<>();
         model.put("company", "My Company");
         model.put("otp_code", 352164);
-        emailSenderService.htmlSend(htmlEmailRequest, model);
+        emailSenderService.sendTemplatedHtmlEmail(htmlEmailRequest, model);
     }
 }
