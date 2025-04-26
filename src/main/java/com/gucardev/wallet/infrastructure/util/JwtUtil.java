@@ -22,10 +22,10 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class JwtUtil {
 
-    @Value("${app.jwt.secret-key}")
+    @Value("${app-specific-configs.security.jwt.secret-key}")
     private String secretKey;
 
-    @Value("${app.jwt.validity-in-minutes}")
+    @Value("${app-specific-configs.security.jwt.validity-in-minutes}")
     private Integer expiration;
 
     private static final Duration ETERNAL_VALIDITY = Duration.ofDays(9999); // Practically eternal

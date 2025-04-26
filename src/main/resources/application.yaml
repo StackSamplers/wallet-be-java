@@ -1,13 +1,15 @@
+# Spring framework configuration
+server:
+  port: 8080
+
 spring:
   application:
     name: wallet
   profiles:
     default: dev
-
   data:
     jdbc:
       dialect: mysql
-
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
@@ -18,16 +20,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
     properties:
       hibernate.format_sql: true
       envers:
         audit_table_suffix: _history
-
   messages:
     encoding: UTF-8
 
-# Actuator configuration for monitoring and management
+# Actuator configuration
 management:
   endpoints:
     web:
@@ -36,36 +36,38 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-  #  server:
-  #    port: 8086
   tracing:
     sampling:
       probability: '1.0'
+  server:
+    port: 8081
 
 # Logging configuration
 logging:
   level:
     root: info
 
-# Caffeine cache configuration
-cache:
-  short:
-    ttl: '60'
-  default:
-    max-size: '1000'
-  medium:
-    ttl: '120'
-
-# Custom app constants
-constants:
-  api-url: url
-  api-key: key
-  default-auditor: SYSTEM
-
-app:
-  jwt.secret-key: ${APP_JWT_SECRET_KEY}
-  jwt.validity-in-minutes: 60
-
-encryption:
-  secret: ${APP_ENC_SECRET}
-
+# Application-specific configuration
+app-specific-configs:
+  cache:
+    short:
+      ttl: '60'
+    medium:
+      ttl: '120'
+    default:
+      max-size: '1000'
+  security:
+    jwt:
+      secret-key: ${APP_JWT_SECRET_KEY}
+      validity-in-minutes: 60
+    encryption:
+      secret: ${APP_ENC_SECRET}
+  api:
+    auth:
+      username: ${API_USERNAME:defaultUsername}
+      password: ${API_PASSWORD:defaultPassword}
+      token: ${API_TOKEN:defaultToken}
+  constants:
+    api-url: url
+    api-key: key
+    default-auditor: SYSTEM

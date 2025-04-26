@@ -22,16 +22,16 @@ public class CaffeineCacheConfig {
     @Primary
     @Bean(CACHE_MANAGER_SHORT_LIVED)
     public CacheManager shortLivedCacheManager(
-            @Value("${cache.short.ttl:60}") int shortTtlSeconds,
-            @Value("${cache.default.max-size:1000}") int defaultMaxSize
+            @Value("${app-specific-configs.cache.short.ttl:60}") int shortTtlSeconds,
+            @Value("${app-specific-configs.cache.default.max-size:1000}") int defaultMaxSize
     ) {
         return buildCacheManager(shortTtlSeconds, defaultMaxSize);
     }
 
     @Bean(CACHE_MANAGER_MEDIUM_LIVED)
     public CacheManager mediumLivedCacheManager(
-            @Value("${cache.medium.ttl:120}") int mediumTtlSeconds,
-            @Value("${cache.default.max-size:1000}") int defaultMaxSize
+            @Value("${app-specific-configs.cache.medium.ttl:120}") int mediumTtlSeconds,
+            @Value("${app-specific-configs.cache.default.max-size:1000}") int defaultMaxSize
     ) {
         return buildCacheManager(mediumTtlSeconds, defaultMaxSize);
     }

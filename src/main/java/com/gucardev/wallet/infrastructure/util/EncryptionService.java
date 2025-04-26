@@ -18,7 +18,7 @@ public class EncryptionService {
     private static final int GCM_IV_LENGTH = 12;
     private static final int GCM_TAG_LENGTH = 16;
 
-    public EncryptionService(@Value("${encryption.secret}") String encryptionKeyString) {
+    public EncryptionService(@Value("${app-specific-configs.security.encryption.secret}") String encryptionKeyString) {
         // The encryption key should be a Base64 encoded 256-bit key (32 bytes)
         byte[] decodedKey = Base64.getDecoder().decode(encryptionKeyString);
         this.encryptionKey = new SecretKeySpec(decodedKey, "AES");

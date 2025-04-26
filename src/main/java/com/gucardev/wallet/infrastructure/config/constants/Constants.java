@@ -11,13 +11,13 @@ public class Constants {
     public static String API_BASE_URL;
     public static String API_KEY;
 
-    @Value("${constants.default-auditor}")
+    @Value("${app-specific-configs.constants.default-auditor}")
     private String defaultAuditor;
 
-    @Value("${constants.api-url}")
+    @Value("${app-specific-configs.constants.api-url}")
     private String apiUrlProperty;
 
-    @Value("${constants.api-key}")
+    @Value("${app-specific-configs.constants.api-key}")
     private String apiKeyProperty;
 
     @PostConstruct
