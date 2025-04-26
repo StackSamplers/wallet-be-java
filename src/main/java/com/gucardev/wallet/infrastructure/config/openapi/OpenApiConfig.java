@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
         },
         servers = {
                 @Server(url = "http://localhost:8080", description = "localhost"),
-                @Server(url = "http://139.162.135.171:8085", description = "Server")
+                @Server(url = "http://example.com", description = "Server")
         }
 )
 @SecuritySchemes({
