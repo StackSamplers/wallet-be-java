@@ -13,6 +13,7 @@ import com.gucardev.wallet.domain.auth.usecase.otp.SendOtpForChangePasswordUseCa
 import com.gucardev.wallet.domain.auth.usecase.otp.SendOtpForRegisterUseCase;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
 import com.gucardev.wallet.infrastructure.response.SuccessResponse;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,12 +36,19 @@ public class AuthControllerV1 {
     private final SendOtpForChangePasswordUseCase sendOtpForChangePasswordUseCase;
     private final ChangePasswordOtpValidateUseCase changePasswordOtpValidateUseCase;
 
+    @RateLimiter(name = "auth", fallbackMethod = "ratelimiterFallback")
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest) {
         return SuccessResponse.builder()
                 .body(loginUserUseCase.execute(loginRequest))
                 .build();
     }
+
+
+    public ResponseEntity<?> ratelimiterFallback(Throwable throwable) {
+        return ResponseEntity.ok("Rate limiter fallback: Too many requests.");
+    }
+
 
     @Operation(
             summary = "register a new user",

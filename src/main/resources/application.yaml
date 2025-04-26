@@ -63,6 +63,15 @@ logging:
   level:
     root: info
 
+# rate limiter
+resilience4j:
+  ratelimiter:
+    instances:
+      auth:
+        limit-for-period: 2
+        limit-refresh-period: 10s
+        timeout-duration: 5s
+
 # Application-specific configuration
 app-specific-configs:
   cache:
