@@ -30,6 +30,18 @@ spring:
       enabled: true
       max-file-size: 10MB
       max-request-size: 100MB
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'false'
+            required: 'false'
+          auth: 'false'
+    host: localhost
+    port: 1025
+    username: project@mail.com
+    password: password
 
 # Actuator configuration
 management:
