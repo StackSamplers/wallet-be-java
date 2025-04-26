@@ -10,7 +10,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class ExampleMaillSendingService implements CommandLineRunner {
+public class ExampleMailSendingService implements CommandLineRunner {
 
     private final EmailSenderService emailSenderService;
     private static final String receiver = "receiver-mail-address";
