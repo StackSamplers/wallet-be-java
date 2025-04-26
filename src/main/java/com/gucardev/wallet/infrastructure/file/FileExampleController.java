@@ -1,6 +1,6 @@
 package com.gucardev.wallet.infrastructure.file;
 
-import com.gucardev.wallet.infrastructure.file.dto.FileDTO;
+import com.gucardev.wallet.infrastructure.file.dto.FileDto;
 import com.gucardev.wallet.infrastructure.file.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,10 +38,10 @@ public class FileExampleController {
     private final FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseEntity<FileDTO> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<FileDto> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            FileDTO fileDTO = fileService.storeFile(file);
-            return ResponseEntity.ok(fileDTO);
+            FileDto fileDto = fileService.storeFile(file);
+            return ResponseEntity.ok(fileDto);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
         } catch (IOException e) {
@@ -50,13 +50,13 @@ public class FileExampleController {
     }
 
     @PostMapping("/uploads")
-    public ResponseEntity<List<FileDTO>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        List<FileDTO> uploadedFiles = new ArrayList<>();
+    public ResponseEntity<List<FileDto>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+        List<FileDto> uploadedFiles = new ArrayList<>();
 
         for (MultipartFile file : files) {
             try {
-                FileDTO fileDTO = fileService.storeFile(file);
-                uploadedFiles.add(fileDTO);
+                FileDto fileDto = fileService.storeFile(file);
+                uploadedFiles.add(fileDto);
             } catch (Exception e) {
                 // Log the error but continue with other files
                 // Consider returning partial success with error details

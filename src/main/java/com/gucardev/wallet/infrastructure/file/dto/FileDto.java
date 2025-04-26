@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileDTO {
+public class FileDto {
     private String id;
     private String originalName;
     private String storedName;

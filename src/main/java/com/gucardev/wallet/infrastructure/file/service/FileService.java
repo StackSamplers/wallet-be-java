@@ -1,6 +1,6 @@
 package com.gucardev.wallet.infrastructure.file.service;
 
-import com.gucardev.wallet.infrastructure.file.dto.FileDTO;
+import com.gucardev.wallet.infrastructure.file.dto.FileDto;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +60,7 @@ public class FileService {
         }
     }
 
-    public FileDTO storeFile(MultipartFile file) throws IOException {
+    public FileDto storeFile(MultipartFile file) throws IOException {
         // Check if file is empty
         if (file.isEmpty()) {
             throw new IllegalArgumentException("Failed to store empty file.");
@@ -89,14 +89,14 @@ public class FileService {
 
         log.info("Stored file {} as {}", sanitizedOriginalName, storedFilename);
 
-        // Create and return FileDTO
+        // Create and return FileDto
         String fileId = UUID.randomUUID().toString();
         String fileUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/files/")
                 .path(storedFilename)
                 .toUriString();
 
-        return new FileDTO(
+        return new FileDto(
                 fileId,
                 sanitizedOriginalName,
                 storedFilename,
