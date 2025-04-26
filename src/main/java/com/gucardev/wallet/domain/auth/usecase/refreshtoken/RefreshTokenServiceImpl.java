@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
@@ -28,10 +28,10 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         refreshTokenRepository.deleteByUser(params);
         // Create and save a new refresh token
         String tokenValue = UUID.randomUUID().toString();
-        Date expiryDate = Date.from(Instant.now().plus(refreshTokenExpiresInMinutes, ChronoUnit.MINUTES));
+        LocalDateTime expiryDate = LocalDateTime.from(Instant.now().plus(refreshTokenExpiresInMinutes, ChronoUnit.MINUTES));
         RefreshToken refreshToken = RefreshToken.builder()
                 .token(tokenValue)
-                .expiryDate(expiryDate)
+                .expiryTime(expiryDate)
                 .user(params)
                 .build();
         refreshTokenRepository.save(refreshToken);
@@ -44,7 +44,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     public boolean isTokenValid(RefreshToken token) {
-        return token.getExpiryDate().after(new Date());
+        return token.getExpiryTime().isAfter(LocalDateTime.now());
     }
 
 }
