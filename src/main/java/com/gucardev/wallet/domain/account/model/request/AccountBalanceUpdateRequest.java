@@ -1,10 +1,11 @@
 package com.gucardev.wallet.domain.account.model.request;
 
+import com.gucardev.wallet.domain.transaction.enumeration.TransactionType;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -14,9 +15,9 @@ import java.util.UUID;
 public class AccountBalanceUpdateRequest {
 
     @NotNull
-    private UUID accountId;
+    private Long accountId;
     @NotNull
     private BigDecimal amount;
-//    @NotNull
-//    private TransactionType transactionType;
+    @NotNull
+    private TransactionType transactionType;
 }

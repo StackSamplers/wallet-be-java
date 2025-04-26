@@ -1,5 +1,6 @@
 package com.gucardev.wallet.domain.account.model.dto;
 
+import com.gucardev.wallet.domain.transaction.enumeration.TransactionType;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ public class AccountBalanceUpdateResponse {
     private BigDecimal previousBalance;
     private BigDecimal newBalance;
     private BigDecimal changeAmount;
-//    private TransactionType transactionType;
+    private TransactionType transactionType;
     private LocalDateTime updatedAt;
 
 }

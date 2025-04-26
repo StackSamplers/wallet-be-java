@@ -3,6 +3,7 @@ package com.gucardev.wallet.domain.account.repository.specification;
 import com.gucardev.wallet.domain.account.entity.Account;
 import com.gucardev.wallet.domain.account.enumeration.AccountType;
 import com.gucardev.wallet.domain.shared.repository.specification.BaseSpecification;
+import com.gucardev.wallet.domain.transaction.entity.Transaction;
 import com.gucardev.wallet.domain.user.entity.User;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
@@ -27,11 +28,11 @@ public class AccountSpecification extends BaseSpecification {
                 cb.equal(root.get("accountType"), accountType);
     }
 
-//    public static Specification<Transaction> byAccountId(UUID accountId) {
-//        return (root, query, cb) -> {
-//            if (accountId == null) return null;
-//            return cb.equal(root.get("account").get("id"), accountId);
-//        };
-//    }
+    public static Specification<Transaction> byAccountId(Long accountId) {
+        return (root, query, cb) -> {
+            if (accountId == null) return null;
+            return cb.equal(root.get("account").get("id"), accountId);
+        };
+    }
 
 }
