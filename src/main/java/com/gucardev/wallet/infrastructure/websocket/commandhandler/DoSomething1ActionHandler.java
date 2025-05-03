@@ -11,6 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// example payload:
+
+// {
+//  "code": 1,
+//    "payload": {
+//       "param1": "param1"
+//     }
+// }
+
 @Slf4j
 @Component
 public class DoSomething1ActionHandler extends AbstractWebSocketActionHandler<

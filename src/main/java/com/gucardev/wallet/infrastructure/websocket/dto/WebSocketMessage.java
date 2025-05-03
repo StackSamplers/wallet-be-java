@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class WebSocketMessage<T> {
-    private int action;
+    private int code;
     private String desc;
     private T payload;
 
@@ -17,21 +17,21 @@ public class WebSocketMessage<T> {
 
     public WebSocketMessage(WebSocketAction actionType, T payload) {
         this.actionType = actionType;
-        this.action = actionType.getCode();
+        this.code = actionType.getCode();
         this.desc = actionType.getDesc();
         this.payload = payload;
     }
 
-    public void setAction(int action) {
-        this.action = action;
-        var actionType = WebSocketAction.fromCode(action);
+    public void setCode(int code) {
+        this.code = code;
+        var actionType = WebSocketAction.fromCode(code);
         this.actionType = actionType;
         this.desc = actionType.getDesc();
     }
 
     public WebSocketAction getActionType() {
         if (actionType == null) {
-            actionType = WebSocketAction.fromCode(action);
+            actionType = WebSocketAction.fromCode(code);
         }
         return actionType;
     }
