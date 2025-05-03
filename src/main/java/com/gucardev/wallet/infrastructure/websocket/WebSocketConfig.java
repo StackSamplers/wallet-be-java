@@ -1,7 +1,7 @@
 package com.gucardev.wallet.infrastructure.websocket;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gucardev.wallet.infrastructure.config.websocket.factory.WebSocketActionFactory;
+import com.gucardev.wallet.infrastructure.websocket.factory.WebSocketActionFactory;
 import com.gucardev.wallet.infrastructure.websocket.session.WebSocketSessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

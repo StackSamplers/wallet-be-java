@@ -17,7 +17,7 @@ public class ExampleMailSendingService implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        sendExampleEmails();
+        //sendExampleEmails();
     }
 
     private void sendExampleEmails() {

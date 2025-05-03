@@ -1,10 +1,10 @@
 spring:
   jpa:
-    show-sql: true
+    show-sql: false
 
 logging:
   level:
-    com.gucardev: debug
+    com.gucardev: info
     org.hibernate.SQL: info
     org.springframework.web: info
 

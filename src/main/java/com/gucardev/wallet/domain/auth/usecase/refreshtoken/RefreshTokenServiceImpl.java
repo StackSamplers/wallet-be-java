@@ -25,10 +25,13 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     public String generateAndSaveRefreshToken(User params) {
         // Delete old tokens for that user
-        refreshTokenRepository.deleteByUser(params);
+        refreshTokenRepository.deleteByUser_Id(params.getId());
         // Create and save a new refresh token
         String tokenValue = UUID.randomUUID().toString();
-        LocalDateTime expiryDate = LocalDateTime.from(Instant.now().plus(refreshTokenExpiresInMinutes, ChronoUnit.MINUTES));
+
+        // Convert Instant to LocalDateTime properly
+        LocalDateTime expiryDate = LocalDateTime.now().plusMinutes(refreshTokenExpiresInMinutes);
+
         RefreshToken refreshToken = RefreshToken.builder()
                 .token(tokenValue)
                 .expiryTime(expiryDate)

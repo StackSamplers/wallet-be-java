@@ -30,12 +30,12 @@ public class AopLoggingHandler {
     private static final int MAX_LOG_LENGTH = 1000; // limit log length to 1000 chars
 
     @Pointcut(
-            "within(" + BASE_PACKAGE + "..*) && " +
+            "within(com.gucardev.wallet..*) && " +
                     "(within(@org.springframework.stereotype.Component *) || " +
                     " within(@org.springframework.stereotype.Service *) || " +
                     " within(@org.springframework.stereotype.Repository *) || " +
                     " within(@org.springframework.stereotype.Controller *)) " +
-                    " && !@within(" + BASE_PACKAGE + ".infrastructure.annotation.ExcludeFromAspect)"
+                    " && !@within(com.gucardev.wallet.infrastructure.config.aspect.annotation.ExcludeFromAspect)"
     )
     public void applicationPackagePointcut() {
     }
