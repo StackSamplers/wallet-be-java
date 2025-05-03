@@ -7,10 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 @Slf4j
@@ -23,6 +22,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Value("${app-specific-configs.security.jwt.refresh-token-validity-in-minutes}")
     private Integer refreshTokenExpiresInMinutes;
 
+    @Transactional
     public String generateAndSaveRefreshToken(User params) {
         // Delete old tokens for that user
         refreshTokenRepository.deleteByUser_Id(params.getId());
@@ -49,5 +49,4 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     public boolean isTokenValid(RefreshToken token) {
         return token.getExpiryTime().isAfter(LocalDateTime.now());
     }
-
 }
