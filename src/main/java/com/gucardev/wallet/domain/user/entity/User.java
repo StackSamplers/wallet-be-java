@@ -54,7 +54,7 @@ public class User extends BaseEntity {
 
         // Set the bidirectional reference
         if (account != null) {
-            account.addUser(this);
+            account.setUser(this);
         }
     }
 

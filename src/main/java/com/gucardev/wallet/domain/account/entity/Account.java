@@ -35,10 +35,6 @@ public class Account extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public void addUser(User user) {
-        this.user = user;
-    }
-
 //    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<Transaction> transactions = new ArrayList<>();
 }
