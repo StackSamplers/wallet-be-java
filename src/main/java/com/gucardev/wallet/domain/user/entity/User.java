@@ -42,4 +42,25 @@ public class User extends BaseEntity {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Account account;
 
+    // Helper method to set the account relationship
+    public void addAccount(Account account) {
+        // Remove old bidirectional reference
+        if (this.account != null) {
+            this.account.setUser(null);
+        }
+
+        // Set new account
+        this.account = account;
+
+        // Set the bidirectional reference
+        if (account != null) {
+            account.addUser(this);
+        }
+    }
+
+    // Helper method to check if user has an account
+    public boolean hasAccount() {
+        return this.account != null;
+    }
+
 }

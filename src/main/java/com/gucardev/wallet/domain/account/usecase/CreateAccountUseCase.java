@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.UUID;
 
 import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
@@ -37,15 +36,19 @@ public class CreateAccountUseCase implements UseCaseWithParamsAndReturn<AccountC
         User user = getUserByIdUseCase.execute(params.getUserId())
                 .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getUserId()));
 
-        // Check if user already has an account
-        if (user.getAccount() != null) {
+        // Use the helper method to check if user has an account
+        if (user.hasAccount()) {
             throw buildException(ExceptionMessage.ALREADY_EXISTS_EXCEPTION);
         }
 
         Account newAccount = accountMapper.toEntity(params);
         newAccount.setBalance(params.getInitialBalance());
         newAccount.setAccountNumber(accNumber);
-        newAccount.setUser(user);
+
+        // Use the helper method to set bidirectional relationship
+        user.addAccount(newAccount);
+
+        // No need to explicitly set newAccount.setUser(user) as it's done in the helper method
 
         Account savedAccount = accountRepository.save(newAccount);
         log.debug("Saved account with ID: {}", savedAccount.getId());

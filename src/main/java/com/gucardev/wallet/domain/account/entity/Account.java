@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 @Table(name = "accounts")
@@ -37,6 +34,10 @@ public class Account extends BaseEntity {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public void addUser(User user) {
+        this.user = user;
+    }
 
 //    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<Transaction> transactions = new ArrayList<>();
