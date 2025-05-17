@@ -1,0 +1,456 @@
+{
+	"info": {
+		"_postman_id": "655100ee-f083-4942-b384-47dc2d5ba3dd",
+		"name": "wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23162952"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"johndoe@example.com\",\n  \"password\": \"pass123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"3fbedfcb-c8c5-47d0-996c-d72f8565a0a8\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/refresh-token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "search users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/search?name=john&surname=doe&email=johndoe@example.com&role=USER&authority=READ:USER&page=0&size=30&sortDir=desc&sortBy=createdDate&startDate=2024-01-01&endDate=2025-12-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "john"
+								},
+								{
+									"key": "surname",
+									"value": "doe"
+								},
+								{
+									"key": "email",
+									"value": "johndoe@example.com"
+								},
+								{
+									"key": "role",
+									"value": "USER"
+								},
+								{
+									"key": "authority",
+									"value": "READ:USER"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "sortDir",
+									"value": "desc"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdDate"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-31"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"pass123\",\r\n  \"email\": \"johnsmith@example.com\",\r\n  \"name\": \"John\",\r\n  \"surname\": \"Smith\",\r\n  \"phoneNumber\": \"05431231234\",\r\n  \"roles\": [\r\n    \"USER\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "search accounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/accounts/search?accountNumber=1172b3660a35474d9e7539ffe86d6bf6&username=john&accountType=SAVINGS&startDate=2024-01-01&endDate=2025-12-31&page=0&size=30&sortDir=desc&sortBy=createdDate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"search"
+							],
+							"query": [
+								{
+									"key": "accountNumber",
+									"value": "1172b3660a35474d9e7539ffe86d6bf6"
+								},
+								{
+									"key": "username",
+									"value": "john"
+								},
+								{
+									"key": "accountType",
+									"value": "SAVINGS"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-12-31"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "sortDir",
+									"value": "desc"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdDate"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get account by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/accounts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete account by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/accounts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"accounts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"initialBalance\": 10.2,\r\n  \"accountType\": \"SAVINGS\",\r\n  \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDc0NzU0NDYsImV4cCI6MTc0NzQ3OTA0Nn0.Y2edVqeYDuCNSyWhnPzaw5acrey0k1Bj56NQIeBv_ad2wsjzbaf4ZRP0r4QydNcWmygeTMSAYPW8HyXOhtYtEw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
