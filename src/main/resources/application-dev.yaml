@@ -4,7 +4,7 @@ spring:
 
 logging:
   level:
-    com.gucardev: info
+    com.gucardev: debug
     org.hibernate.SQL: info
     org.springframework.web: info
 

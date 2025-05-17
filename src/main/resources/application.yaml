@@ -46,6 +46,10 @@ spring:
     port: 1025
     username: project@mail.com
     password: password
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      compression-type: snappy
 
 # Actuator configuration
 management:
