@@ -14,12 +14,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MessageController {
 
-    private final KafkaPublisher kafkaPublisher;
+    private final ExampleKafkaPublisher exampleKafkaPublisher;
 
     @PostMapping("/publish")
     public ResponseEntity<String> publishMessage(@RequestBody Map<String, Object> request) {
         String data = request.get("data").toString();
-        kafkaPublisher.send(data);
+        exampleKafkaPublisher.send(data);
         return ResponseEntity.ok("Message sent successfully to topic");
     }
 
