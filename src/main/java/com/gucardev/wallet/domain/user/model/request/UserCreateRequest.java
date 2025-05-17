@@ -35,7 +35,7 @@ public class UserCreateRequest {
 
     @Schema(
             description = "Email Address",
-            example = "johndoe@example.com",
+            example = "johnsmith@example.com",
             type = "string"
     )
     @Email
@@ -55,7 +55,7 @@ public class UserCreateRequest {
 
     @Schema(
             description = "Surname",
-            example = "Doe",
+            example = "Smith",
             type = "string",
             minLength = 2,
             maxLength = 50
@@ -65,7 +65,7 @@ public class UserCreateRequest {
 
     @Schema(
             description = "phone number",
-            example = "05431231234",
+            example = "5431231234",
             type = "string",
             minLength = 3,
             maxLength = 15

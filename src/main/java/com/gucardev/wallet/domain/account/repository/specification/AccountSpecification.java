@@ -11,11 +11,11 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class AccountSpecification extends BaseSpecification {
 
-    public static Specification<Account> hasUsernameLike(String username) {
+    public static Specification<Account> hasEmailLike(String email) {
         return (root, query, cb) -> {
-            if (username == null) return null;
+            if (email == null) return null;
             Join<Account, User> userJoin = root.join("user", JoinType.INNER);
-            return cb.like(cb.lower(userJoin.get("username")), "%" + username.toLowerCase() + "%");
+            return cb.like(cb.lower(userJoin.get("email")), "%" + email.toLowerCase() + "%");
         };
     }
 

@@ -23,9 +23,9 @@ public class AccountFilterRequest extends BaseFilterRequest {
     @Size(max = 255)
     private String accountNumber;
 
-    @Schema(description = "Filter by username", example = "john")
+    @Schema(description = "Filter by email", example = "john")
     @Size(max = 255)
-    private String username;
+    private String email;
 
     @Schema(description = "Filter by account type", example = "SAVINGS")
     @Pattern(regexp = "^(CHECKING|SAVINGS|CREDIT|INVESTMENT)$", message = "{role.pattern.exception}")

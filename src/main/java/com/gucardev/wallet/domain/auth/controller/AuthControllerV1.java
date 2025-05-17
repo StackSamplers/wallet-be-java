@@ -2,6 +2,7 @@ package com.gucardev.wallet.domain.auth.controller;
 
 import com.gucardev.wallet.domain.auth.model.dto.LoginRequest;
 import com.gucardev.wallet.domain.auth.model.dto.OtpResponse;
+import com.gucardev.wallet.domain.auth.model.dto.RefreshTokenRequest;
 import com.gucardev.wallet.domain.auth.model.dto.TokenDto;
 import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
 import com.gucardev.wallet.domain.auth.model.request.GenerateOtpRequest;
@@ -38,12 +39,29 @@ public class AuthControllerV1 {
     private final SendOtpForRegisterUseCase sendOtpForRegisterUseCase;
     private final SendOtpForChangePasswordUseCase sendOtpForChangePasswordUseCase;
     private final ChangePasswordOtpValidateUseCase changePasswordOtpValidateUseCase;
+    private final GenerateTokenByRefreshTokenUseCase generateTokenByRefreshTokenUseCase;
 
+    @Operation(
+            summary = "login",
+            description = "This api allows you to login and retrieve jwt token"
+    )
     @RateLimiter(name = "loginRateLimiter")
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest) {
         return SuccessResponse.builder()
                 .body(loginUserUseCase.execute(loginRequest))
+                .build();
+    }
+
+    @Operation(
+            summary = "refresh token",
+            description = "This api refreshes jwt token"
+    )
+    @RateLimiter(name = "loginRateLimiter")
+    @PostMapping("/refresh-token")
+    public ResponseEntity<TokenDto> refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+        return SuccessResponse.builder()
+                .body(generateTokenByRefreshTokenUseCase.execute(refreshTokenRequest))
                 .build();
     }
 

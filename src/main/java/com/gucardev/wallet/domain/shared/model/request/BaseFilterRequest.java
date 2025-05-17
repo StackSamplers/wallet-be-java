@@ -41,7 +41,7 @@ public class BaseFilterRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
-    @Schema(description = "Filter entity created before this date", example = "2025-12-31")
+    @Schema(description = "Filter entity created before this date", example = "2028-12-31")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 

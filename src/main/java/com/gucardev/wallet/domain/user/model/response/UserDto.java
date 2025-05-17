@@ -1,6 +1,7 @@
 package com.gucardev.wallet.domain.user.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gucardev.wallet.domain.account.model.dto.AccountDto;
 import com.gucardev.wallet.domain.shared.model.dto.BaseDto;
 import com.gucardev.wallet.domain.user.enumeration.Role;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,7 @@ public class UserDto extends BaseDto {
     private String phoneNumber;
     private Set<Role> roles = new HashSet<>();
     private Set<String> authorities = new HashSet<>();
+
+    private AccountDto account;
 
 }

@@ -1,6 +1,7 @@
 # Spring framework configuration
 server:
   port: 8080
+
 spring:
   application:
     name: wallet
@@ -9,6 +10,9 @@ spring:
   data:
     jdbc:
       dialect: mysql
+    web:
+      pageable:
+        serialization-mode: via-dto
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}

@@ -15,6 +15,7 @@ public interface AccountMapper {
     @Mapping(source = "user.id", target = "userId")
     AccountDto toDto(Account entity);
 
+    @Mapping(target = "user.account", ignore = true)
     @Mapping(target = "user.authorities", ignore = true)
     AccountDtoWithUser toDtoWithUser(Account entity);
 

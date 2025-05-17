@@ -3,6 +3,7 @@ package com.gucardev.wallet.domain.auth.usecase.refreshtoken;
 import com.gucardev.wallet.domain.auth.entity.RefreshToken;
 import com.gucardev.wallet.domain.auth.repository.RefreshTokenRepository;
 import com.gucardev.wallet.domain.user.entity.User;
+import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
 
 @Slf4j
 @Service
@@ -43,7 +46,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     public RefreshToken findByToken(String token) {
         return refreshTokenRepository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Refresh token not found!"));
+                .orElseThrow(() -> buildSilentException(ExceptionMessage.NOT_FOUND_EXCEPTION, token));
     }
 
     public boolean isTokenValid(RefreshToken token) {

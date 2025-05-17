@@ -11,6 +11,7 @@ public enum Authority implements GrantedAuthority {
     READ_USER("READ:USER"),
     WRITE_USER("WRITE:USER"),
     DELETE_USER("DELETE:USER"),
+    DELETE_ACCOUNT("DELETE:ACCOUNT"),
 
 
     // Configuration authorities

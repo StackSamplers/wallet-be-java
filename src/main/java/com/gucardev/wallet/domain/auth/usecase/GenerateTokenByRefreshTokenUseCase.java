@@ -1,6 +1,7 @@
 package com.gucardev.wallet.domain.auth.usecase;
 
 import com.gucardev.wallet.domain.auth.entity.RefreshToken;
+import com.gucardev.wallet.domain.auth.model.dto.RefreshTokenRequest;
 import com.gucardev.wallet.domain.auth.model.dto.TokenDto;
 import com.gucardev.wallet.domain.auth.usecase.refreshtoken.RefreshTokenService;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParamsAndReturn;
@@ -11,14 +12,14 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class GenerateTokenByRefreshTokenUseCase implements UseCaseWithParamsAndReturn<String, TokenDto> {
+public class GenerateTokenByRefreshTokenUseCase implements UseCaseWithParamsAndReturn<RefreshTokenRequest, TokenDto> {
 
     private final RefreshTokenService refreshTokenService;
     private final GenerateTokenTokenUseCase generateTokenTokenUseCase;
 
     @Override
-    public TokenDto execute(String params) {
-        RefreshToken refreshToken = refreshTokenService.findByToken(params);
+    public TokenDto execute(RefreshTokenRequest params) {
+        RefreshToken refreshToken = refreshTokenService.findByToken(params.getToken());
         if (!refreshTokenService.isTokenValid(refreshToken)) {
             throw new RuntimeException("Refresh token is expired or invalid!");
         }

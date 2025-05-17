@@ -32,7 +32,7 @@ public class SearchAccountsUseCase implements UseCaseWithParamsAndReturn<Account
         Pageable pageable = PageRequest.of(params.getPage(), params.getSize(), Sort.by(params.getSortDir(), params.getSortBy()));
 
         Specification<Account> spec = Specification
-                .where(AccountSpecification.hasUsernameLike(params.getUsername()))
+                .where(AccountSpecification.hasEmailLike(params.getEmail()))
                 .and(AccountSpecification.hasAccountNumberLike(params.getAccountNumber()))
                 .and(AccountSpecification.hasAccountType(params.getAccountType()))
                 .and(AccountSpecification.createdBetween(params.getStartDate(), params.getEndDate()))

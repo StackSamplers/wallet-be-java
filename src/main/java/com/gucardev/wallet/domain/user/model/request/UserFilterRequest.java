@@ -16,23 +16,23 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserFilterRequest extends BaseFilterRequest {
 
-    @Schema(description = "Filter by name", example = "John")
+    @Schema(description = "Filter by name", example = "john")
     @Size(max = 255)
     private String name;
 
-    @Schema(description = "Filter by surname", example = "Doe")
+    @Schema(description = "Filter by surname", example = "doe")
     @Size(max = 255)
     private String surname;
 
-    @Schema(description = "Filter by email", example = "john.doe@example.com")
+    @Schema(description = "Filter by email", example = "johndoe@example.com")
     @Size(max = 255)
     private String email;
 
-    @Schema(description = "Filter by role", example = "ADMIN")
+    @Schema(description = "Filter by role", example = "USER")
     @Pattern(regexp = "^(ADMIN|MODERATOR|MACHINE|USER)$", message = "{role.pattern.exception}")
     private String role;
 
-    @Schema(description = "Filter by specific authority", example = "READ_USER")
+    @Schema(description = "Filter by specific authority", example = "READ:USER")
     @Size(max = 255)
     private String authority;
 
