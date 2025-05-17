@@ -6,6 +6,8 @@ import com.gucardev.wallet.domain.account.model.dto.AccountDto;
 import com.gucardev.wallet.domain.account.model.request.AccountFilterRequest;
 import com.gucardev.wallet.domain.account.repository.AccountRepository;
 import com.gucardev.wallet.domain.account.repository.specification.AccountSpecification;
+import com.gucardev.wallet.domain.auth.helper.AuthorizationUtils;
+import com.gucardev.wallet.domain.auth.usecase.GetAuthenticatedUserDtoUseCase;
 import com.gucardev.wallet.domain.shared.enumeration.DeletedStatus;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParamsAndReturn;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +27,12 @@ public class SearchAccountsUseCase implements UseCaseWithParamsAndReturn<Account
 
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
+    private final GetAuthenticatedUserDtoUseCase getAuthenticatedUserDtoUseCase;
 
     @Override
     public Page<AccountDto> execute(AccountFilterRequest params) {
+        // Determine if user should see this account based on ownership and roles
+        DeletedStatus deletedStatus = AuthorizationUtils.determineDeletedStatusFilterForAccount(getAuthenticatedUserDtoUseCase.execute());
 
         Pageable pageable = PageRequest.of(params.getPage(), params.getSize(), Sort.by(params.getSortDir(), params.getSortBy()));
 
@@ -36,7 +41,7 @@ public class SearchAccountsUseCase implements UseCaseWithParamsAndReturn<Account
                 .and(AccountSpecification.hasAccountNumberLike(params.getAccountNumber()))
                 .and(AccountSpecification.hasAccountType(params.getAccountType()))
                 .and(AccountSpecification.createdBetween(params.getStartDate(), params.getEndDate()))
-                .and(AccountSpecification.deleted(DeletedStatus.DELETED_FALSE));
+                .and(AccountSpecification.deleted(deletedStatus));
 
         Page<Account> accountsPage = accountRepository.findAll(spec, pageable);
         return accountsPage.map(accountMapper::toDto);

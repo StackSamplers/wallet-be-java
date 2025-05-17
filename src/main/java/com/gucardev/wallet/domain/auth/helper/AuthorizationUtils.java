@@ -1,5 +1,6 @@
 package com.gucardev.wallet.domain.auth.helper;
 
+import com.gucardev.wallet.domain.shared.enumeration.DeletedStatus;
 import com.gucardev.wallet.domain.user.enumeration.Authority;
 import com.gucardev.wallet.domain.user.enumeration.Role;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
@@ -88,6 +89,16 @@ public final class AuthorizationUtils {
 
         return Arrays.stream(roles)
                 .anyMatch(user.getRoles()::contains);
+    }
+
+    public static DeletedStatus determineDeletedStatusFilterForAccount(UserDto user) {
+        if (hasRole(user, Role.ADMIN)) {
+            // Admins can see all records (including deleted)
+            return DeletedStatus.DELETED_UNKNOWN;
+        } else {
+            // Regular users can only see non-deleted records of others
+            return DeletedStatus.DELETED_FALSE;
+        }
     }
 
     public static boolean canAccessDeletedResource(

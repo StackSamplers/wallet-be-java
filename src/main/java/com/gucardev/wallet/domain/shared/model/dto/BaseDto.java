@@ -20,4 +20,6 @@ public class BaseDto {
 
     private String lastModifiedBy;
 
+    private boolean deleted;
+
 }
