@@ -46,7 +46,14 @@ public class RedisCacheConfig {
             redisConfig.setPassword(redisPassword);
         }
 
-        return new LettuceConnectionFactory(redisConfig);
+//        return new LettuceConnectionFactory(redisConfig);
+        LettuceConnectionFactory factory = new LettuceConnectionFactory(redisConfig);
+
+        // This enables keyspace notifications for expired events
+        factory.setShareNativeConnection(false);
+        factory.afterPropertiesSet();
+
+        return factory;
     }
 
     @Bean
