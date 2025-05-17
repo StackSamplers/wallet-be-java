@@ -147,6 +147,18 @@ services:
     networks:
       - project-network
 
+  dragonfly:
+    image: docker.dragonflydb.io/dragonflydb/dragonfly
+    container_name: dragonfly
+    hostname: dragonfly
+    privileged: true
+    ulimits:
+      memlock: -1
+    ports:
+      - "6379:6379"
+    networks:
+      - project-network
+
 
 networks:
   project-network:

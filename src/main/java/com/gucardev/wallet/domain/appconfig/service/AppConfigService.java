@@ -6,7 +6,7 @@ import com.gucardev.wallet.domain.appconfig.model.dto.AppConfigDto;
 import com.gucardev.wallet.domain.appconfig.model.request.AppConfigRequest;
 import com.gucardev.wallet.domain.appconfig.repository.AppConfigRepository;
 import com.gucardev.wallet.infrastructure.config.cache.CacheNames;
-import com.gucardev.wallet.infrastructure.config.cache.CaffeineCacheConfig;
+import com.gucardev.wallet.infrastructure.config.cache.caffeine.CaffeineCacheConfig;
 import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

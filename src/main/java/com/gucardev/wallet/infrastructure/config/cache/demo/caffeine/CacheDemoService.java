@@ -1,14 +1,13 @@
-package com.gucardev.wallet.infrastructure.config.cache.demo;
+package com.gucardev.wallet.infrastructure.config.cache.demo.caffeine;
 
 import com.gucardev.wallet.infrastructure.config.cache.CacheNames;
-import com.gucardev.wallet.infrastructure.config.cache.CaffeineCacheConfig;
+import com.gucardev.wallet.infrastructure.config.cache.caffeine.CaffeineCacheConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

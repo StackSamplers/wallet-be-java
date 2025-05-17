@@ -13,6 +13,10 @@ spring:
     web:
       pageable:
         serialization-mode: via-dto
+    redis:
+      host: localhost
+      port: 6379
+#      password: pass
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
@@ -50,7 +54,6 @@ spring:
     bootstrap-servers: localhost:9092
     producer:
       compression-type: snappy
-
 # Actuator configuration
 management:
   endpoints:

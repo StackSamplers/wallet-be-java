@@ -1,6 +1,7 @@
-package com.gucardev.wallet.infrastructure.config.cache;
+package com.gucardev.wallet.infrastructure.config.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.gucardev.wallet.infrastructure.config.cache.CacheNames;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

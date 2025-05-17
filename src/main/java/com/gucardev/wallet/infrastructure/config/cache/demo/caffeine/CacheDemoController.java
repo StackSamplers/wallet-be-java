@@ -1,4 +1,4 @@
-package com.gucardev.wallet.infrastructure.config.cache.demo;//package com.gucardev.wallet.infrastructure.config.cache.demo;
+package com.gucardev.wallet.infrastructure.config.cache.demo.caffeine;//package com.gucardev.wallet.infrastructure.config.cache.demo;
 //
 //
 //import lombok.RequiredArgsConstructor;
