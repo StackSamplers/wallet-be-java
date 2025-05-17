@@ -1,6 +1,5 @@
-package com.gucardev.wallet.infrastructure.config.kafka;
+package com.gucardev.wallet.infrastructure.config.kafka.example;
 
-import com.gucardev.wallet.infrastructure.config.kafka.producer.KafkaPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

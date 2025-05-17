@@ -1,6 +1,6 @@
-package com.gucardev.wallet.infrastructure.config.kafka.consumer;
+package com.gucardev.wallet.infrastructure.config.kafka.example;
 
-import com.gucardev.wallet.infrastructure.config.kafka.dto.ExampleMessage;
+import com.gucardev.wallet.infrastructure.config.kafka.example.dto.ExampleMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
@@ -20,8 +20,6 @@ public class ExampleKafkaConsumer {
 
             // Your business logic here
             log.info("Message content: {}", message.getContent());
-
-            // Add your processing logic here
 
             // Manually acknowledge the message after successful processing
             acknowledgment.acknowledge();

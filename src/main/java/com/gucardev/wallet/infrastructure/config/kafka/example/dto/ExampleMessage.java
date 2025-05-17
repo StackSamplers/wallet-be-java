@@ -1,4 +1,4 @@
-package com.gucardev.wallet.infrastructure.config.kafka.dto;
+package com.gucardev.wallet.infrastructure.config.kafka.example.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
