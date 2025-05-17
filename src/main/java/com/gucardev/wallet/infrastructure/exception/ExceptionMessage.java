@@ -13,6 +13,7 @@ public enum ExceptionMessage {
     INVALID_OTP_EXCEPTION("messages.error.default_message", HttpStatus.NOT_FOUND, 1005),
     ACCOUNT_LOCKED("messages.error.access_denied_exception", HttpStatus.LOCKED, 1006),
     FORBIDDEN_EXCEPTION("messages.error.forbidden_exception", HttpStatus.FORBIDDEN, 1007),
+    INVALID_VALUE_FOR_TYPE("messages.error.invalid_value_for_type", HttpStatus.BAD_REQUEST, 1011),
     AUTHENTICATION_FAILED("messages.error.authentication_failed", HttpStatus.UNAUTHORIZED, 1008),
     TOO_MANY_REQUESTS_EXCEPTION("messages.error.too_many_requests", HttpStatus.TOO_MANY_REQUESTS, 1009),
     INSUFFICIENT_FUNDS_EXCEPTION("messages.error.insufficient_fund", HttpStatus.UNAUTHORIZED, 1010);

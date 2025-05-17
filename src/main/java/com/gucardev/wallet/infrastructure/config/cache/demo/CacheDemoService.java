@@ -2,11 +2,13 @@ package com.gucardev.wallet.infrastructure.config.cache.demo;
 
 import com.gucardev.wallet.infrastructure.config.cache.CacheNames;
 import com.gucardev.wallet.infrastructure.config.cache.CaffeineCacheConfig;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,10 +17,14 @@ import java.util.UUID;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CacheDemoService {
 
     // Simulate database with a simple map
     private final Map<String, Object> mockDatabase = new HashMap<>();
+
+//    private final ApplicationContext applicationContext;
+//   applicationContext.getBean(MyService.class).getCachedData()
 
     /**
      * Basic caching example using short-lived cache (default)

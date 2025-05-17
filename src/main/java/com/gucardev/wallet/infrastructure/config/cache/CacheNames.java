@@ -6,7 +6,6 @@ import java.util.List;
 
 public class CacheNames {
 
-    public static final String CACHE_MACHINE_PRODUCTS = "machine_products";
     public static final String CACHE_CONFIGURATIONS = "configurations";
     public static final String CACHE_PRODUCTS = "machine_products";
     public static final String CACHE_USER_PREFERENCES = "user_preferences";
@@ -15,7 +14,6 @@ public class CacheNames {
 
     public static List<String> getAllCacheNames() {
         return Arrays.asList(
-                CACHE_MACHINE_PRODUCTS,
                 CACHE_CONFIGURATIONS,
                 CACHE_PRODUCTS,
                 CACHE_USER_PREFERENCES,
