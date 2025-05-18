@@ -11,6 +11,7 @@ import com.gucardev.wallet.domain.user.usecase.CreateUserUseCase;
 import com.gucardev.wallet.domain.user.usecase.GetUserByIdUseCase;
 import com.gucardev.wallet.domain.user.usecase.SearchUsersUseCase;
 import com.gucardev.wallet.domain.user.usecase.UpdateUserUseCase;
+import com.gucardev.wallet.infrastructure.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -43,7 +44,7 @@ public class UserControllerV1 {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-        return ResponseEntity.ok(createUserUseCase.execute(userCreateRequest));
+        return SuccessResponse.builder().body(createUserUseCase.execute(userCreateRequest)).build();
     }
 
     @Operation(
@@ -52,7 +53,7 @@ public class UserControllerV1 {
     )
     @GetMapping("/search")
     public ResponseEntity<Page<UserDto>> searchUsers(@Valid @ParameterObject UserFilterRequest filterRequest) {
-        return ResponseEntity.ok(searchUsersUseCase.execute(filterRequest));
+        return SuccessResponse.builder().body(searchUsersUseCase.execute(filterRequest)).build();
     }
 
     @Operation(
@@ -61,9 +62,8 @@ public class UserControllerV1 {
     )
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@Valid @NotNull @PathVariable Long id) {
-        return getUserByIdUseCase.execute(id)
-                .map(userMapper::toDto).map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        var result = getUserByIdUseCase.executeAndThrowExceptionIfNotFound(id);
+        return SuccessResponse.builder().body(userMapper.toDto(result)).build();
     }
 
     @Operation(
@@ -73,7 +73,7 @@ public class UserControllerV1 {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest, @PathVariable Long id) {
-        return ResponseEntity.ok(updateUserUseCase.execute(new UserUpdateUseCaseParam(id, userUpdateRequest)));
+        return SuccessResponse.builder().body(updateUserUseCase.execute(new UserUpdateUseCaseParam(id, userUpdateRequest))).build();
     }
 
 }

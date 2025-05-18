@@ -58,6 +58,11 @@ public class SuccessResponse<T> {
             return this;
         }
 
+        public SuccessResponseBuilder<T> status(int status) {
+            this.status = HttpStatus.valueOf(status);
+            return this;
+        }
+
         public SuccessResponseBuilder<T> message(String message) {
             this.message = message;
             return this;
@@ -94,9 +99,12 @@ public class SuccessResponse<T> {
             HttpHeaders httpHeaders = new HttpHeaders();
             headers.forEach(httpHeaders::add);
 
-            // This cast is safe if R matches the actual type of the data
+            // Create the SuccessResponse object with the data
+            SuccessResponse<T> successResponse = new SuccessResponse<>(status, message, data);
+
+            // Cast the SuccessResponse to R (this is what you want to return)
             @SuppressWarnings("unchecked")
-            R responseBody = (R) data;
+            R responseBody = (R) successResponse;
 
             return ResponseEntity.status(status)
                     .headers(httpHeaders)
