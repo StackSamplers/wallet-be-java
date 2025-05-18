@@ -1,4 +1,4 @@
-package com.gucardev.wallet.domain.auth.model.dto;
+package com.gucardev.wallet.domain.auth.model.response;
 
 import com.gucardev.wallet.domain.user.model.response.UserDto;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package com.gucardev.wallet.domain.user.model.request;
 
 import com.gucardev.wallet.domain.shared.model.request.BaseFilterRequest;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

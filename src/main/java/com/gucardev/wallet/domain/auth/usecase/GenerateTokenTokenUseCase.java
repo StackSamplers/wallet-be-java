@@ -1,6 +1,6 @@
 package com.gucardev.wallet.domain.auth.usecase;
 
-import com.gucardev.wallet.domain.auth.model.dto.TokenDto;
+import com.gucardev.wallet.domain.auth.model.response.TokenDto;
 import com.gucardev.wallet.domain.auth.usecase.refreshtoken.RefreshTokenService;
 import com.gucardev.wallet.domain.user.entity.User;
 import com.gucardev.wallet.domain.user.mapper.UserMapper;

@@ -4,10 +4,13 @@ package com.gucardev.wallet.domain.user.controller;
 import com.gucardev.wallet.domain.user.mapper.UserMapper;
 import com.gucardev.wallet.domain.user.model.request.UserCreateRequest;
 import com.gucardev.wallet.domain.user.model.request.UserFilterRequest;
+import com.gucardev.wallet.domain.user.model.request.UserUpdateRequest;
+import com.gucardev.wallet.domain.user.model.request.UserUpdateUseCaseParam;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
 import com.gucardev.wallet.domain.user.usecase.CreateUserUseCase;
 import com.gucardev.wallet.domain.user.usecase.GetUserByIdUseCase;
 import com.gucardev.wallet.domain.user.usecase.SearchUsersUseCase;
+import com.gucardev.wallet.domain.user.usecase.UpdateUserUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -30,6 +33,7 @@ public class UserControllerV1 {
     private final CreateUserUseCase createUserUseCase;
     private final SearchUsersUseCase searchUsersUseCase;
     private final GetUserByIdUseCase getUserByIdUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
     private final UserMapper userMapper;
 
     @Operation(
@@ -60,6 +64,16 @@ public class UserControllerV1 {
         return getUserByIdUseCase.execute(id)
                 .map(userMapper::toDto).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @Operation(
+            summary = "Update existing user",
+            description = "This api updates user"
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserUpdateRequest userUpdateRequest, @PathVariable Long id) {
+        return ResponseEntity.ok(updateUserUseCase.execute(new UserUpdateUseCaseParam(id, userUpdateRequest)));
     }
 
 }

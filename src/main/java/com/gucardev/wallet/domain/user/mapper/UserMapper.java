@@ -3,7 +3,7 @@ package com.gucardev.wallet.domain.user.mapper;
 import com.gucardev.wallet.domain.account.entity.Account;
 import com.gucardev.wallet.domain.account.model.dto.AccountDto;
 import com.gucardev.wallet.domain.user.entity.User;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import com.gucardev.wallet.domain.user.model.request.UserCreateRequest;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
 import org.mapstruct.Mapper;

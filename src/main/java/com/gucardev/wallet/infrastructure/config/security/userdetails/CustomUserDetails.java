@@ -1,7 +1,7 @@
 package com.gucardev.wallet.infrastructure.config.security.userdetails;
 
 import com.gucardev.wallet.domain.user.entity.User;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

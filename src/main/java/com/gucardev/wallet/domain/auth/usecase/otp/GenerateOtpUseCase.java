@@ -3,7 +3,7 @@ package com.gucardev.wallet.domain.auth.usecase.otp;
 
 import com.gucardev.wallet.domain.auth.entity.UserOtp;
 import com.gucardev.wallet.domain.auth.enumeration.OtpType;
-import com.gucardev.wallet.domain.auth.model.dto.OtpResponse;
+import com.gucardev.wallet.domain.auth.model.response.OtpResponse;
 import com.gucardev.wallet.domain.auth.model.request.GenerateOtpRequest;
 import com.gucardev.wallet.domain.auth.repository.UserOtpRepository;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;

@@ -3,7 +3,7 @@ package com.gucardev.wallet.domain.user.model.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gucardev.wallet.domain.account.model.dto.AccountDto;
 import com.gucardev.wallet.domain.shared.model.dto.BaseDto;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

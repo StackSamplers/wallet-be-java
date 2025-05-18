@@ -1,4 +1,4 @@
-package com.gucardev.wallet.domain.auth.model.dto;
+package com.gucardev.wallet.domain.auth.model.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

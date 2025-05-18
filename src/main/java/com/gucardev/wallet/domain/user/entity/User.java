@@ -2,7 +2,7 @@ package com.gucardev.wallet.domain.user.entity;
 
 import com.gucardev.wallet.domain.account.entity.Account;
 import com.gucardev.wallet.domain.shared.entity.BaseEntity;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

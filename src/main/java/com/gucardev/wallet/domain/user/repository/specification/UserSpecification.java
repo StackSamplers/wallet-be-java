@@ -2,7 +2,7 @@ package com.gucardev.wallet.domain.user.repository.specification;
 
 import com.gucardev.wallet.domain.shared.repository.specification.BaseSpecification;
 import com.gucardev.wallet.domain.user.entity.User;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 

@@ -3,7 +3,7 @@ package com.gucardev.wallet.domain.account.usecase;
 import com.gucardev.wallet.domain.account.repository.AccountRepository;
 import com.gucardev.wallet.domain.auth.helper.AuthorizationUtils;
 import com.gucardev.wallet.domain.auth.usecase.GetAuthenticatedUserDtoUseCase;
-import com.gucardev.wallet.domain.user.enumeration.Authority;
+import com.gucardev.wallet.domain.auth.enumeration.Authority;
 import com.gucardev.wallet.infrastructure.config.constants.Constants;
 import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParams;

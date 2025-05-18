@@ -1,8 +1,8 @@
 package com.gucardev.wallet.domain.auth.usecase;
 
 import com.gucardev.wallet.domain.auth.entity.RefreshToken;
-import com.gucardev.wallet.domain.auth.model.dto.RefreshTokenRequest;
-import com.gucardev.wallet.domain.auth.model.dto.TokenDto;
+import com.gucardev.wallet.domain.auth.model.response.RefreshTokenRequest;
+import com.gucardev.wallet.domain.auth.model.response.TokenDto;
 import com.gucardev.wallet.domain.auth.usecase.refreshtoken.RefreshTokenService;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParamsAndReturn;
 import lombok.RequiredArgsConstructor;

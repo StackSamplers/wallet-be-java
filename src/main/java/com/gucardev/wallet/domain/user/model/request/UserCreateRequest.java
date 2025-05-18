@@ -1,7 +1,7 @@
 package com.gucardev.wallet.domain.user.model.request;
 
 import com.gucardev.wallet.domain.auth.model.request.UserRegisterRequest;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

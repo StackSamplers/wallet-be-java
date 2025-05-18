@@ -1,8 +1,8 @@
 package com.gucardev.wallet.domain.auth.helper;
 
 import com.gucardev.wallet.domain.shared.enumeration.DeletedStatus;
-import com.gucardev.wallet.domain.user.enumeration.Authority;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Authority;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
 
 import java.util.Arrays;

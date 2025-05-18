@@ -3,8 +3,8 @@ package com.gucardev.wallet.domain.auth.helper;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.gucardev.wallet.domain.account.model.dto.AccountDto;
-import com.gucardev.wallet.domain.user.enumeration.Authority;
-import com.gucardev.wallet.domain.user.enumeration.Role;
+import com.gucardev.wallet.domain.auth.enumeration.Authority;
+import com.gucardev.wallet.domain.auth.enumeration.Role;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

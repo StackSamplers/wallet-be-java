@@ -1,9 +1,6 @@
 package com.gucardev.wallet.domain.auth.controller;
 
-import com.gucardev.wallet.domain.auth.model.dto.LoginRequest;
-import com.gucardev.wallet.domain.auth.model.dto.OtpResponse;
-import com.gucardev.wallet.domain.auth.model.dto.RefreshTokenRequest;
-import com.gucardev.wallet.domain.auth.model.dto.TokenDto;
+import com.gucardev.wallet.domain.auth.model.response.*;
 import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
 import com.gucardev.wallet.domain.auth.model.request.GenerateOtpRequest;
 import com.gucardev.wallet.domain.auth.model.request.UserRegisterRequest;
@@ -13,7 +10,6 @@ import com.gucardev.wallet.domain.auth.usecase.otp.ChangePasswordOtpValidateUseC
 import com.gucardev.wallet.domain.auth.usecase.otp.SendOtpForChangePasswordUseCase;
 import com.gucardev.wallet.domain.auth.usecase.otp.SendOtpForRegisterUseCase;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
-import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
 import com.gucardev.wallet.infrastructure.response.SuccessResponse;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
@@ -40,6 +38,7 @@ public class AuthControllerV1 {
     private final SendOtpForChangePasswordUseCase sendOtpForChangePasswordUseCase;
     private final ChangePasswordOtpValidateUseCase changePasswordOtpValidateUseCase;
     private final GenerateTokenByRefreshTokenUseCase generateTokenByRefreshTokenUseCase;
+    private final GetRolesAndPermissionsUseCase getRolesAndPermissionsUseCase;
 
     @Operation(
             summary = "login",
@@ -132,4 +131,14 @@ public class AuthControllerV1 {
         return SuccessResponse.builder().build();
     }
 
+    @Operation(
+            summary = "List all roles and permissions",
+            description = "This API retrieves all roles and their associated permissions"
+    )
+    @GetMapping("/roles-permissions")
+    public ResponseEntity<List<RolePermissionsDto>> getRolesAndPermissions() {
+        return SuccessResponse.builder()
+                .body(getRolesAndPermissionsUseCase.execute())
+                .build();
+    }
 }
