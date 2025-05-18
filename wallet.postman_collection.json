@@ -46,7 +46,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"johndoe@example.com\",\n  \"password\": \"pass123\"\n}",
+							"raw": "{\n    \"email\": \"johndoe@example.com\",\n    \"password\": \"pass123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -122,6 +122,161 @@
 							"path": [
 								"auth",
 								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "healthcheck",
+			"item": [
+				{
+					"name": "get log level",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/logging/levels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"logging",
+								"levels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set root log level",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/logging/level/root/:logLevel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"logging",
+								"level",
+								"root",
+								":logLevel"
+							],
+							"variable": [
+								{
+									"key": "logLevel",
+									"value": "info"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set package level",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/logging/level/package?level=debug",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"logging",
+								"level",
+								"package"
+							],
+							"query": [
+								{
+									"key": "packageName",
+									"value": "org.springframework.web",
+									"disabled": true
+								},
+								{
+									"key": "level",
+									"value": "debug"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "time",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpYXQiOjE3NDYzMDMxNzIsImV4cCI6MTc0NjMwNjc3Mn0.DD5GZdCM7CBmvS_1joIJvAfkgzzO_74drE7CFnl2xK5kdHCQ3P3yYGhpkkLloqfIaiIQ6JXST7HxcywdizpXoA"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"pass123\",\r\n  \"email\": \"johnsmith@example.com\",\r\n  \"name\": \"John\",\r\n  \"surname\": \"Smith\",\r\n  \"phoneNumber\": \"05431231234\",\r\n  \"roles\": [\r\n    \"USER\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/time",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"time"
 							]
 						}
 					},

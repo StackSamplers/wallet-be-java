@@ -7,6 +7,8 @@ logging:
     com.gucardev: info
     org.hibernate.SQL: info
     org.springframework.web: info
+    org.apache.kafka: ERROR
+    org.springframework.kafka: ERROR
 
 springdoc:
   swagger-ui:
