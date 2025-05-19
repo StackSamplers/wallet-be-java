@@ -1,33 +1,113 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+**/*.iws
+**/*.ipr
+**/*.iws
+**/.idea_modules/
+**/out/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# VS Code
+**/.vscode/
+**/*.code-workspace
+**/.history/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# Python
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/.Python
+**/env/
+**/build/
+**/develop-eggs/
+**/dist/
+**/downloads/
+**/eggs/
+**/.eggs/
+**/lib/
+**/lib64/
+**/parts/
+**/sdist/
+**/var/
+**/*.egg-info/
+**/.installed.cfg
+**/*.egg
+**/.pytest_cache/
+**/.coverage
+**/htmlcov/
+**/.tox/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Node.js
+**/node_modules/
+**/npm-debug.log
+**/yarn-debug.log
+**/yarn-error.log
+**/.env
+**/.env.test
+**/.cache/
+**/coverage/
+**/.nyc_output/
 
-### VS Code ###
-.vscode/
+# Flutter/Dart
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/.pub-cache/
+**/.pub/
+**/build/
+**/ios/Pods/
+**/android/.gradle
+
+# Maven/Gradle
+**/target/
+**/.gradle/
+**/build/
+**/gradle-app.setting
+!**/gradle-wrapper.jar
+**/.gradletasknamecache
+
+# Go
+**/*.exe
+**/*.exe~
+**/*.dll
+**/*.so
+**/*.dylib
+**/*.test
+**/*.out
+**/go.work
+**/vendor/
+**/Godeps/
+
+# Android Studio
+**/*.apk
+**/*.ap_
+**/*.aab
+**/*.dex
+**/*.class
+**/bin/
+**/gen/
+**/captures/
+**/.navigation/
+**/local.properties
+**/proguard/
+**/.externalNativeBuild/
+**/.cxx/
+
+# React Native
+**/ios/Pods/
+**/.buckd/
+**/buck-out/
+**/*.keystore
+!**/debug.keystore
+**/.metro-health-check*
+**/.xcode.env.local
+**/.xcodebuild/
+
+# General
+**/*.log
+**/*.bak
+**/*.swp
+**/*~
+**/.DS_Store
+**/Thumbs.db
