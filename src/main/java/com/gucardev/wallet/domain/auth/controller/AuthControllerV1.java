@@ -11,8 +11,10 @@ import com.gucardev.wallet.domain.auth.model.response.TokenDto;
 import com.gucardev.wallet.domain.auth.usecase.*;
 import com.gucardev.wallet.domain.auth.usecase.otp.confirm.email.ActivateUserByEmailOtpUseCase;
 import com.gucardev.wallet.domain.auth.usecase.otp.confirm.email.ChangePasswordAfterValidateEmailOtpUseCase;
+import com.gucardev.wallet.domain.auth.usecase.otp.confirm.sms.ActivateUserBySmsOtpUseCase;
 import com.gucardev.wallet.domain.auth.usecase.otp.send.email.SendEmailOtpForChangePasswordUseCase;
 import com.gucardev.wallet.domain.auth.usecase.otp.send.email.SendEmailOtpForRegisterUseCase;
+import com.gucardev.wallet.domain.auth.usecase.otp.send.sms.SendSmsOtpForRegisterUseCase;
 import com.gucardev.wallet.domain.auth.usecase.token.GenerateTokenByRefreshTokenUseCase;
 import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.otp.model.response.OtpResponse;
@@ -43,6 +45,8 @@ public class AuthControllerV1 {
     private final SendEmailOtpForChangePasswordUseCase sendEmailOtpForChangePasswordUseCase;
     private final GenerateTokenByRefreshTokenUseCase generateTokenByRefreshTokenUseCase;
     private final GetRolesAndPermissionsUseCase getRolesAndPermissionsUseCase;
+    private final SendSmsOtpForRegisterUseCase sendSmsOtpForRegisterUseCase;
+    private final ActivateUserBySmsOtpUseCase activateUserBySmsOtpUseCase;
 
     // ===== AUTHENTICATION ENDPOINTS =====
 
@@ -99,12 +103,32 @@ public class AuthControllerV1 {
     // ===== OTP ENDPOINTS =====
 
     @Operation(
-            summary = "Send registration OTP",
+            summary = "Send EMAIL registration OTP",
             description = "Generate and send 6-digit OTP for email verification during registration. Valid for 3 minutes."
     )
     @PostMapping("/otp/email/registration/send")  // Grouped under /otp with clear purpose
-    public ResponseEntity<OtpResponse> sendRegistrationOtp(@Valid @RequestBody RegisterOtpRequest request) {
+    public ResponseEntity<OtpResponse> sendEmailRegistrationOtp(@Valid @RequestBody RegisterOtpRequest request) {
         sendEmailOtpForRegisterUseCase.execute(request);
+        return SuccessResponse.builder().build();
+    }
+
+    @Operation(
+            summary = "Send SMS registration OTP",
+            description = "Generate and send 6-digit OTP for sms verification during registration. Valid for 3 minutes."
+    )
+    @PostMapping("/otp/sms/registration/send")  // Grouped under /otp with clear purpose
+    public ResponseEntity<OtpResponse> sendSmsRegistrationOtp(@Valid @RequestBody RegisterOtpRequest request) {
+        sendSmsOtpForRegisterUseCase.execute(request);
+        return SuccessResponse.builder().build();
+    }
+
+    @Operation(
+            summary = "Verify EMAIL registration OTP",
+            description = "Validate OTP and activate user account"
+    )
+    @PostMapping("/otp/email/registration/verify")
+    public ResponseEntity<Void> verifyEmailRegistrationOtp(@Valid @RequestBody ValidateOtpRequest request) {
+        activateUserByEmailOtpUseCase.execute(request);
         return SuccessResponse.builder().build();
     }
 
@@ -112,9 +136,9 @@ public class AuthControllerV1 {
             summary = "Verify registration OTP",
             description = "Validate OTP and activate user account"
     )
-    @PostMapping("/otp/email/registration/verify")
-    public ResponseEntity<Void> verifyRegistrationOtp(@Valid @RequestBody ValidateOtpRequest request) {
-        activateUserByEmailOtpUseCase.execute(request);
+    @PostMapping("/otp/sms/registration/verify")
+    public ResponseEntity<Void> verifySmsRegistrationOtp(@Valid @RequestBody ValidateOtpRequest request) {
+        activateUserBySmsOtpUseCase.execute(request);
         return SuccessResponse.builder().build();
     }
 

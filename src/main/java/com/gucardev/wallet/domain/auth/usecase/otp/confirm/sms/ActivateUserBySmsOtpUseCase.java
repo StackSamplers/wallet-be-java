@@ -1,4 +1,4 @@
-package com.gucardev.wallet.domain.auth.usecase.otp.confirm.email;
+package com.gucardev.wallet.domain.auth.usecase.otp.confirm.sms;
 
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
 import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
@@ -12,13 +12,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ActivateUserByEmailOtpUseCase implements UseCaseWithParams<ValidateOtpRequest> {
+public class ActivateUserBySmsOtpUseCase implements UseCaseWithParams<ValidateOtpRequest> {
 
     private final ValidateOtpUseCase validateOtpUseCase;
     private final GetUserByEmailUseCase getUserByEmailUseCase;
@@ -28,10 +27,13 @@ public class ActivateUserByEmailOtpUseCase implements UseCaseWithParams<Validate
     public void execute(ValidateOtpRequest params) {
         String email = params.getDestination();
         params.setType(OtpType.REGISTER_USER_VERIFICATION);
-        params.setSendingChannel(OtpSendingChannel.EMAIL);
+        params.setSendingChannel(OtpSendingChannel.SMS);
 
         var user = getUserByEmailUseCase.execute(email)
                 .orElseThrow(() -> buildSilentException(ExceptionMessage.NOT_FOUND_EXCEPTION));
+
+        // set destination as phone number
+        params.setDestination(user.getPhoneNumber());
 
         if (!validateOtpUseCase.execute(params)) {
             throw buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION);

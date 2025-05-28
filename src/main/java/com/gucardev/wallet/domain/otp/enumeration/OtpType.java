@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum OtpType {
-    REGISTER_EMAIL_VERIFICATION, CHANGE_PASSWORD;
+    REGISTER_USER_VERIFICATION, CHANGE_PASSWORD;
 }
