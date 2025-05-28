@@ -2,7 +2,7 @@ package com.gucardev.wallet.domain.auth.usecase;
 
 import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.auth.model.request.UserRegisterRequest;
-import com.gucardev.wallet.domain.auth.usecase.otp.SendEmailOtpForRegisterUseCase;
+import com.gucardev.wallet.domain.auth.usecase.otp.send.email.SendEmailOtpForRegisterUseCase;
 import com.gucardev.wallet.domain.user.model.request.UserCreateRequest;
 import com.gucardev.wallet.domain.user.usecase.CreateUserUseCase;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParams;

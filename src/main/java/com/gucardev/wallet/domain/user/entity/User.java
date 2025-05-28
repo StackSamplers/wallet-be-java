@@ -3,6 +3,7 @@ package com.gucardev.wallet.domain.user.entity;
 import com.gucardev.wallet.domain.account.entity.Account;
 import com.gucardev.wallet.domain.shared.entity.BaseEntity;
 import com.gucardev.wallet.domain.auth.enumeration.Role;
+import com.gucardev.wallet.infrastructure.util.LowerCaseConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     private String password;
+
     @Column(unique = true, nullable = false)
     private String email;
     private String name;

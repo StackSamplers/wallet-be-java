@@ -79,7 +79,13 @@ resilience4j.ratelimiter:
     loginRateLimiter:
       limitForPeriod: 5
       limitRefreshPeriod: 1m
-      timeoutDuration: 0
+      timeoutDuration: 30s
+      writableStackTraceEnabled: false
+    registerRateLimiter:
+      limitForPeriod: 5
+      limitRefreshPeriod: 1m
+      timeoutDuration: 30s
+      writableStackTraceEnabled: false
 
 # Application-specific configuration
 app-specific-configs:

@@ -26,7 +26,7 @@ public class CreateUserUseCase implements UseCaseWithParamsAndReturn<UserCreateR
     @Override
     public UserDto execute(UserCreateRequest params) {
 
-        if (userRepository.existsByEmail(params.getEmail())) {
+        if (userRepository.existsByEmailIgnoreCase(params.getEmail())) {
             throw buildSilentException(ExceptionMessage.ALREADY_EXISTS_EXCEPTION, params.getEmail());
         }
         var newUser = userMapper.toEntity(params);

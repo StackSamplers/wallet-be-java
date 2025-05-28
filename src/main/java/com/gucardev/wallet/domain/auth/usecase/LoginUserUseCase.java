@@ -3,6 +3,7 @@ package com.gucardev.wallet.domain.auth.usecase;
 import com.gucardev.wallet.domain.auth.helper.ExtractAuthenticatedUserUseCase;
 import com.gucardev.wallet.domain.auth.model.response.LoginRequest;
 import com.gucardev.wallet.domain.auth.model.response.TokenDto;
+import com.gucardev.wallet.domain.auth.usecase.token.GenerateTokenTokenUseCase;
 import com.gucardev.wallet.domain.user.entity.User;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParamsAndReturn;

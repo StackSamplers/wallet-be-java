@@ -1,6 +1,6 @@
-package com.gucardev.wallet.domain.auth.usecase;
+package com.gucardev.wallet.domain.auth.usecase.otp.confirm.email;
 
-import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
+import com.gucardev.wallet.domain.auth.model.request.ChangePasswordConfirmRequest;
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
 import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
@@ -20,7 +20,7 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ChangePasswordAfterValidateEmailOtpUseCase implements UseCaseWithParams<ChangePasswordRequest> {
+public class ChangePasswordAfterValidateEmailOtpUseCase implements UseCaseWithParams<ChangePasswordConfirmRequest> {
 
     private final ValidateOtpUseCase validateOtpUseCase;
     private final GetUserByEmailUseCase getUserByEmailUseCase;
@@ -28,7 +28,7 @@ public class ChangePasswordAfterValidateEmailOtpUseCase implements UseCaseWithPa
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void execute(ChangePasswordRequest params) {
+    public void execute(ChangePasswordConfirmRequest params) {
         String email = params.getEmail();
         if (!validateOtpUseCase.execute(new ValidateOtpRequest(params.getEmail(), OtpType.CHANGE_PASSWORD, OtpSendingType.EMAIL, params.getOtp()))) {
             throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);

@@ -17,8 +17,4 @@ public class OtpSendingRequest {
     private OtpType type;
     private OtpSendingType sendingType;
 
-    public OtpSendingRequest(String destination, OtpType type) {
-        this.destination = destination;
-        this.type = type;
-    }
 }

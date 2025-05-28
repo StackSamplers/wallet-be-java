@@ -1,4 +1,4 @@
-package com.gucardev.wallet.domain.auth.usecase;
+package com.gucardev.wallet.domain.auth.usecase.token;
 
 import com.gucardev.wallet.domain.auth.entity.RefreshToken;
 import com.gucardev.wallet.domain.auth.model.response.RefreshTokenRequest;

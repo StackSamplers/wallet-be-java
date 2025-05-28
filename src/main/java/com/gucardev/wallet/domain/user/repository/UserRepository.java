@@ -13,5 +13,5 @@ public interface UserRepository extends BaseJpaRepository<User, Long> {
 
     Optional<User> findByPhoneNumber(String phoneNumber);
 
-    boolean existsByEmail(String email);
+    boolean existsByEmailIgnoreCase(String email);
 }

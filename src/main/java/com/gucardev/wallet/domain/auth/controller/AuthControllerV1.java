@@ -1,15 +1,20 @@
 package com.gucardev.wallet.domain.auth.controller;
 
+import com.gucardev.wallet.domain.auth.model.request.ChangePasswordConfirmRequest;
 import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
-import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.auth.model.request.UserRegisterRequest;
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
-import com.gucardev.wallet.domain.auth.model.response.*;
+import com.gucardev.wallet.domain.auth.model.response.LoginRequest;
+import com.gucardev.wallet.domain.auth.model.response.RefreshTokenRequest;
+import com.gucardev.wallet.domain.auth.model.response.RolePermissionsDto;
+import com.gucardev.wallet.domain.auth.model.response.TokenDto;
 import com.gucardev.wallet.domain.auth.usecase.*;
-import com.gucardev.wallet.domain.auth.usecase.otp.ActivateUserByEmailOtpUseCase;
-import com.gucardev.wallet.domain.auth.usecase.otp.SendEmailOtpForChangePasswordUseCase;
-import com.gucardev.wallet.domain.auth.usecase.otp.SendEmailOtpForRegisterUseCase;
-import com.gucardev.wallet.domain.otp.model.request.OtpSendingRequest;
+import com.gucardev.wallet.domain.auth.usecase.otp.confirm.email.ActivateUserByEmailOtpUseCase;
+import com.gucardev.wallet.domain.auth.usecase.otp.confirm.email.ChangePasswordAfterValidateEmailOtpUseCase;
+import com.gucardev.wallet.domain.auth.usecase.otp.send.email.SendEmailOtpForChangePasswordUseCase;
+import com.gucardev.wallet.domain.auth.usecase.otp.send.email.SendEmailOtpForRegisterUseCase;
+import com.gucardev.wallet.domain.auth.usecase.token.GenerateTokenByRefreshTokenUseCase;
+import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.otp.model.response.OtpResponse;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
 import com.gucardev.wallet.infrastructure.response.SuccessResponse;
@@ -71,6 +76,7 @@ public class AuthControllerV1 {
             summary = "Register new user",
             description = "Create a new user account"
     )
+    @RateLimiter(name = "registerRateLimiter")
     @PostMapping("/register")
     public ResponseEntity<TokenDto> registerUser(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
         registerUserUseCase.execute(userRegisterRequest);
@@ -119,7 +125,7 @@ public class AuthControllerV1 {
             description = "Generate and send 6-digit OTP for password reset. Valid for 3 minutes."
     )
     @PostMapping("/otp/email/password-reset")  // Clear password reset flow
-    public ResponseEntity<OtpResponse> sendPasswordResetOtp(@Valid @RequestBody OtpSendingRequest request) {
+    public ResponseEntity<OtpResponse> sendPasswordResetOtp(@Valid @RequestBody ChangePasswordRequest request) {
         sendEmailOtpForChangePasswordUseCase.execute(request);
         return SuccessResponse.builder().build();
     }
@@ -129,7 +135,7 @@ public class AuthControllerV1 {
             description = "Change password after OTP verification"
     )
     @PostMapping("/otp/email/password-reset-confirm")
-    public ResponseEntity<Void> resetPassword(@Valid @RequestBody ChangePasswordRequest request) {
+    public ResponseEntity<Void> resetPassword(@Valid @RequestBody ChangePasswordConfirmRequest request) {
         changePasswordAfterValidateEmailOtpUseCase.execute(request);
         return SuccessResponse.builder().build();
     }

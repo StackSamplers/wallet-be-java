@@ -26,8 +26,6 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 public class GenerateOtpUseCase implements UseCaseWithParamsAndReturn<OtpSendingRequest, OtpResponse> {
 
     private final UserOtpRepository userOtpRepository;
-    private final GetUserByEmailUseCase getUserByEmailUseCase;
-    private final GetUserByPhoneNumberUseCase getUserByPhoneNumberUseCase;
 
     private static final int OTP_LENGTH = 6;
     private static final int OTP_EXPIRY_MINUTES = 3;
@@ -38,17 +36,6 @@ public class GenerateOtpUseCase implements UseCaseWithParamsAndReturn<OtpSending
         String destination = params.getDestination();
         OtpType type = params.getType();
         OtpSendingType sendingType = params.getSendingType();
-
-        if (sendingType.equals(OtpSendingType.EMAIL)) {
-            // Check if email exists in the system
-            getUserByEmailUseCase.execute(destination)
-                    .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, destination));
-        }
-//        else if (sendingType.equals(OtpSendingType.SMS)) {
-        // if phone number is not unique, don't validate it
-//            getUserByPhoneNumberUseCase.execute(destination)
-//                    .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, destination));
-//        }
 
         // Check if OTP already exists for this destination
         if (userOtpRepository.existsByDestinationAndTypeAndSendingType(destination, type, sendingType)) {
