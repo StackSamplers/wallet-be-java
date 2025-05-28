@@ -1,9 +1,9 @@
-package com.gucardev.wallet.domain.auth.usecase.otp.send.email;
+package com.gucardev.wallet.domain.auth.usecase.otp.send.sms;
 
+import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
 import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import com.gucardev.wallet.domain.otp.model.request.OtpSendingRequest;
-import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.otp.model.response.OtpResponse;
 import com.gucardev.wallet.domain.otp.usecase.GenerateOtpUseCase;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
@@ -18,23 +18,23 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SendEmailOtpForRegisterUseCase implements UseCaseWithParamsAndReturn<RegisterOtpRequest, OtpResponse> {
+public class SendEmailOtpForChangePasswordUseCase implements UseCaseWithParamsAndReturn<ChangePasswordRequest, OtpResponse> {
 
     private final GenerateOtpUseCase generateOtpUseCase;
     private final GetUserByEmailUseCase getUserByEmailUseCase;
 
     @Override
-    public OtpResponse execute(RegisterOtpRequest params) {
-        String email = params.getDestination();
+    public OtpResponse execute(ChangePasswordRequest params) {
+        String email = params.getEmail();
 
         // Check if email exists in the system
-        getUserByEmailUseCase.execute(email)
+        var user = getUserByEmailUseCase.execute(email)
                 .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, email));
 
         OtpSendingRequest otpSendingRequest = OtpSendingRequest.builder()
-                .type(OtpType.REGISTER_EMAIL_VERIFICATION)
-                .sendingType(OtpSendingType.EMAIL)
-                .destination(email)
+                .type(OtpType.CHANGE_PASSWORD)
+                .sendingType(OtpSendingType.SMS)
+                .destination(user.getPhoneNumber())
                 .build();
         var generatedOtp = generateOtpUseCase.execute(otpSendingRequest);
         if (generatedOtp.isSent()) {
@@ -42,7 +42,7 @@ public class SendEmailOtpForRegisterUseCase implements UseCaseWithParamsAndRetur
         }
         otpSendingRequest.setOtp(generatedOtp.getOtp());
         // todo sent otp sms/email here
-        OtpSendingType.fromType(OtpSendingType.EMAIL).getService().sendNotification(otpSendingRequest);
+        OtpSendingType.fromType(OtpSendingType.SMS).getService().sendNotification(otpSendingRequest);
         return generatedOtp;
     }
 }

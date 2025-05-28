@@ -1,4 +1,4 @@
-package com.gucardev.wallet.domain.auth.usecase.otp.send.email;
+package com.gucardev.wallet.domain.auth.usecase.otp.send.sms;
 
 import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
@@ -25,16 +25,12 @@ public class SendEmailOtpForRegisterUseCase implements UseCaseWithParamsAndRetur
 
     @Override
     public OtpResponse execute(RegisterOtpRequest params) {
-        String email = params.getDestination();
-
-        // Check if email exists in the system
-        getUserByEmailUseCase.execute(email)
-                .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, email));
+        String phoneNumber = params.getDestination();
 
         OtpSendingRequest otpSendingRequest = OtpSendingRequest.builder()
                 .type(OtpType.REGISTER_EMAIL_VERIFICATION)
-                .sendingType(OtpSendingType.EMAIL)
-                .destination(email)
+                .sendingType(OtpSendingType.SMS)
+                .destination(phoneNumber)
                 .build();
         var generatedOtp = generateOtpUseCase.execute(otpSendingRequest);
         if (generatedOtp.isSent()) {
@@ -42,7 +38,7 @@ public class SendEmailOtpForRegisterUseCase implements UseCaseWithParamsAndRetur
         }
         otpSendingRequest.setOtp(generatedOtp.getOtp());
         // todo sent otp sms/email here
-        OtpSendingType.fromType(OtpSendingType.EMAIL).getService().sendNotification(otpSendingRequest);
+        OtpSendingType.fromType(OtpSendingType.SMS).getService().sendNotification(otpSendingRequest);
         return generatedOtp;
     }
 }

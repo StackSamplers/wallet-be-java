@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SmsOtpSendUseCase  implements OtpSendingService {
+public class SmsOtpSendUseCase implements OtpSendingService {
 
     @Override
     public void sendNotification(OtpSendingRequest otpSendingRequest) {
