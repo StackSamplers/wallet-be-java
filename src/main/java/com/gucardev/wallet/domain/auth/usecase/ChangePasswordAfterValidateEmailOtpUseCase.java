@@ -1,9 +1,10 @@
 package com.gucardev.wallet.domain.auth.usecase;
 
-import com.gucardev.wallet.domain.auth.enumeration.OtpType;
 import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
-import com.gucardev.wallet.domain.auth.usecase.otp.ValidateOtpUseCase;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpType;
+import com.gucardev.wallet.domain.otp.usecase.ValidateOtpUseCase;
 import com.gucardev.wallet.domain.user.repository.UserRepository;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
 import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
@@ -19,7 +20,7 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ChangePasswordUseCase implements UseCaseWithParams<ChangePasswordRequest> {
+public class ChangePasswordAfterValidateEmailOtpUseCase implements UseCaseWithParams<ChangePasswordRequest> {
 
     private final ValidateOtpUseCase validateOtpUseCase;
     private final GetUserByEmailUseCase getUserByEmailUseCase;
@@ -29,7 +30,7 @@ public class ChangePasswordUseCase implements UseCaseWithParams<ChangePasswordRe
     @Override
     public void execute(ChangePasswordRequest params) {
         String email = params.getEmail();
-        if (!validateOtpUseCase.execute(new ValidateOtpRequest(params.getEmail(), OtpType.CHANGE_PASSWORD, params.getOtp()))) {
+        if (!validateOtpUseCase.execute(new ValidateOtpRequest(params.getEmail(), OtpType.CHANGE_PASSWORD, OtpSendingType.EMAIL, params.getOtp()))) {
             throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);
         }
         var user = getUserByEmailUseCase.execute(email)

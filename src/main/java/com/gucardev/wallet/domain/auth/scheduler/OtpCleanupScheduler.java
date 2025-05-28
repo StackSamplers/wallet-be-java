@@ -1,6 +1,6 @@
 package com.gucardev.wallet.domain.auth.scheduler;
 
-import com.gucardev.wallet.domain.auth.repository.UserOtpRepository;
+import com.gucardev.wallet.domain.otp.repository.UserOtpRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

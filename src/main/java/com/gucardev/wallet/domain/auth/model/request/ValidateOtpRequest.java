@@ -1,8 +1,8 @@
 package com.gucardev.wallet.domain.auth.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gucardev.wallet.domain.auth.enumeration.OtpType;
-import jakarta.validation.constraints.Email;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -14,12 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ValidateOtpRequest {
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email should be valid")
-    private String email;
+    @NotBlank(message = "destination is required")
+    private String destination;
 
     @JsonIgnore
     private OtpType type;
+
+    @JsonIgnore
+    private OtpSendingType sendingType;
 
     @NotBlank(message = "OTP is required")
     @Size(min = 6, max = 6, message = "OTP must be 6 digits")

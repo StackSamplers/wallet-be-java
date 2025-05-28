@@ -1,8 +1,8 @@
-package com.gucardev.wallet.domain.auth.usecase;
+package com.gucardev.wallet.domain.auth.usecase.otp;
 
-import com.gucardev.wallet.domain.auth.enumeration.OtpType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
-import com.gucardev.wallet.domain.auth.usecase.otp.ValidateOtpUseCase;
+import com.gucardev.wallet.domain.otp.usecase.ValidateOtpUseCase;
 import com.gucardev.wallet.domain.user.repository.UserRepository;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
 import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
@@ -16,7 +16,7 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ActivateUserUseCase implements UseCaseWithParams<ValidateOtpRequest> {
+public class ActivateUserByEmailOtpUseCase implements UseCaseWithParams<ValidateOtpRequest> {
 
     private final ValidateOtpUseCase validateOtpUseCase;
     private final GetUserByEmailUseCase getUserByEmailUseCase;
@@ -24,7 +24,7 @@ public class ActivateUserUseCase implements UseCaseWithParams<ValidateOtpRequest
 
     @Override
     public void execute(ValidateOtpRequest params) {
-        String email = params.getEmail();
+        String email = params.getDestination();
         params.setType(OtpType.REGISTER_EMAIL_VERIFICATION);
 
         if (!validateOtpUseCase.execute(params)) {
