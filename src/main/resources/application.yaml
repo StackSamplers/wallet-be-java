@@ -115,3 +115,10 @@ app-specific-configs:
   storage:
     directory: ./storage
     allowed-extensions: jpg,jpeg,png,pdf,doc,docx
+  # netgsm configs
+  netgsm:
+    api:
+      url: ${NETGSM_URL:}
+    usercode: ${NETGSM_USERCODE:}
+    password: ${NETGSM_PASSWORD:}
+    msgheader: ${NETGSM_HEADER:}
