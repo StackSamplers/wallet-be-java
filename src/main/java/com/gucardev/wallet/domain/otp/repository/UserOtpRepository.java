@@ -1,7 +1,8 @@
-package com.gucardev.wallet.domain.auth.repository;
+package com.gucardev.wallet.domain.otp.repository;
 
-import com.gucardev.wallet.domain.auth.entity.UserOtp;
-import com.gucardev.wallet.domain.auth.enumeration.OtpType;
+import com.gucardev.wallet.domain.otp.entity.UserOtp;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,9 +15,9 @@ import java.util.Optional;
 @Repository
 public interface UserOtpRepository extends JpaRepository<UserOtp, Long> {
 
-    Optional<UserOtp> findByEmailAndType(String email, OtpType type);
+    Optional<UserOtp> findByDestinationAndTypeAndSendingType(String destination, OtpType type, OtpSendingType sendingType);
 
-    boolean existsByEmailAndType(String email, OtpType type);
+    boolean existsByDestinationAndTypeAndSendingType(String destination, OtpType type, OtpSendingType sendingType);
 
     @Modifying
     @Transactional

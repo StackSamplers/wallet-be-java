@@ -1,6 +1,7 @@
-package com.gucardev.wallet.domain.auth.entity;
+package com.gucardev.wallet.domain.otp.entity;
 
-import com.gucardev.wallet.domain.auth.enumeration.OtpType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import com.gucardev.wallet.domain.shared.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,7 +21,7 @@ public class UserOtp extends BaseEntity {
     private Long version;
 
     @Column(nullable = false)
-    private String email;
+    private String destination;
 
     @Column(nullable = false)
     private String otp;
@@ -31,11 +32,15 @@ public class UserOtp extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OtpType type;
 
-    public UserOtp(String email, String otp, LocalDateTime expiryTime, OtpType type) {
-        this.email = email;
+    @Enumerated(EnumType.STRING)
+    private OtpSendingType sendingType;
+
+    public UserOtp(String destination, String otp, LocalDateTime expiryTime, OtpType type, OtpSendingType sendingType) {
+        this.destination = destination;
         this.otp = otp;
         this.expiryTime = expiryTime;
         this.type = type;
+        this.sendingType = sendingType;
     }
 
     public boolean isExpired() {

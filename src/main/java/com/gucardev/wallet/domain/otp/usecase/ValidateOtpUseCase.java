@@ -1,9 +1,10 @@
-package com.gucardev.wallet.domain.auth.usecase.otp;
+package com.gucardev.wallet.domain.otp.usecase;
 
-import com.gucardev.wallet.domain.auth.entity.UserOtp;
-import com.gucardev.wallet.domain.auth.enumeration.OtpType;
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
-import com.gucardev.wallet.domain.auth.repository.UserOtpRepository;
+import com.gucardev.wallet.domain.otp.entity.UserOtp;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpType;
+import com.gucardev.wallet.domain.otp.repository.UserOtpRepository;
 import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
 import com.gucardev.wallet.infrastructure.usecase.UseCaseWithParamsAndReturn;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +25,13 @@ public class ValidateOtpUseCase implements UseCaseWithParamsAndReturn<ValidateOt
     @Override
     @Transactional
     public Boolean execute(ValidateOtpRequest params) {
-        String email = params.getEmail();
+        String destination = params.getDestination();
         OtpType type = params.getType();
+        OtpSendingType sendingType = params.getSendingType();
         String otp = params.getOtp();
 
         // Find OTP for the provided email
-        UserOtp userOtp = userOtpRepository.findByEmailAndType(email, type)
+        UserOtp userOtp = userOtpRepository.findByDestinationAndTypeAndSendingType(destination, type, sendingType)
                 .orElseThrow(() -> buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION));
 
         // Check if OTP is expired
@@ -45,7 +47,7 @@ public class ValidateOtpUseCase implements UseCaseWithParamsAndReturn<ValidateOt
 
         // OTP is valid, delete it after successful validation
         userOtpRepository.delete(userOtp);
-        log.info("OTP validated successfully for email: {}", email);
+        log.info("OTP validated successfully for email: {}", destination);
 
         return true;
     }

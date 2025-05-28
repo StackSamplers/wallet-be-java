@@ -1,7 +1,7 @@
-package com.gucardev.wallet.domain.auth.model.response;
+package com.gucardev.wallet.domain.otp.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gucardev.wallet.domain.auth.enumeration.OtpType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

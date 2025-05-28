@@ -1,4 +1,4 @@
-package com.gucardev.wallet.domain.auth.enumeration;
+package com.gucardev.wallet.domain.otp.enumeration;
 
 import lombok.Getter;
 
