@@ -1,7 +1,7 @@
 package com.gucardev.wallet.domain.auth.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,7 +21,7 @@ public class ValidateOtpRequest {
     private OtpType type;
 
     @JsonIgnore
-    private OtpSendingType sendingType;
+    private OtpSendingChannel sendingChannel;
 
     @NotBlank(message = "OTP is required")
     @Size(min = 6, max = 6, message = "OTP must be 6 digits")

@@ -2,7 +2,7 @@ package com.gucardev.wallet.domain.auth.usecase.otp.confirm.email;
 
 import com.gucardev.wallet.domain.auth.model.request.ChangePasswordConfirmRequest;
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
-import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import com.gucardev.wallet.domain.otp.usecase.ValidateOtpUseCase;
 import com.gucardev.wallet.domain.user.repository.UserRepository;
@@ -32,7 +32,7 @@ public class ChangePasswordAfterValidateEmailOtpUseCase implements UseCaseWithPa
         String email = params.getEmail();
         var user = getUserByEmailUseCase.execute(email)
                 .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION));
-        if (!validateOtpUseCase.execute(new ValidateOtpRequest(params.getEmail(), OtpType.CHANGE_PASSWORD, OtpSendingType.EMAIL, params.getOtp()))) {
+        if (!validateOtpUseCase.execute(new ValidateOtpRequest(params.getEmail(), OtpType.CHANGE_PASSWORD, OtpSendingChannel.EMAIL, params.getOtp()))) {
             throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);
         }
         user.setPassword(bCryptPasswordEncoder.encode(params.getPassword()));

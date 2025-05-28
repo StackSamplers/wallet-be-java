@@ -1,6 +1,6 @@
 package com.gucardev.wallet.domain.otp.entity;
 
-import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import com.gucardev.wallet.domain.shared.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -33,14 +33,14 @@ public class UserOtp extends BaseEntity {
     private OtpType type;
 
     @Enumerated(EnumType.STRING)
-    private OtpSendingType sendingType;
+    private OtpSendingChannel sendingChannel;
 
-    public UserOtp(String destination, String otp, LocalDateTime expiryTime, OtpType type, OtpSendingType sendingType) {
+    public UserOtp(String destination, String otp, LocalDateTime expiryTime, OtpType type, OtpSendingChannel sendingChannel) {
         this.destination = destination;
         this.otp = otp;
         this.expiryTime = expiryTime;
         this.type = type;
-        this.sendingType = sendingType;
+        this.sendingChannel = sendingChannel;
     }
 
     public boolean isExpired() {

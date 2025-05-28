@@ -1,19 +1,24 @@
 package com.gucardev.wallet.domain.otp.service;
 
-import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import com.gucardev.wallet.domain.otp.model.request.OtpSendingRequest;
+import com.gucardev.wallet.domain.otp.service.base.AbstractOtpSendingService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
-public class SmsOtpSendUseCase implements OtpSendingService {
+public class SmsOtpSendUseCase extends AbstractOtpSendingService {
+
+    // Inject SMS service here
+    // private final SmsService smsService;
+    @Override
+    protected OtpSendingChannel getSendingChannel() {
+        return OtpSendingChannel.SMS;
+    }
 
     @Override
-    public void sendNotification(OtpSendingRequest otpSendingRequest) {
-        otpSendingRequest.setSendingType(OtpSendingType.SMS);
+    protected void doSendNotification(OtpSendingRequest otpSendingRequest) {
 
     }
 }

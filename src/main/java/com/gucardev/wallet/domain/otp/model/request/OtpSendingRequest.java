@@ -1,7 +1,7 @@
 package com.gucardev.wallet.domain.otp.model.request;
 
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
-import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import lombok.*;
 
 @Getter
@@ -15,6 +15,6 @@ public class OtpSendingRequest {
     private String otp;
 
     private OtpType type;
-    private OtpSendingType sendingType;
+    private OtpSendingChannel sendingChannel;
 
 }

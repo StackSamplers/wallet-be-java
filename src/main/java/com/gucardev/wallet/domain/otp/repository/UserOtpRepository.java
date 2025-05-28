@@ -1,7 +1,7 @@
 package com.gucardev.wallet.domain.otp.repository;
 
 import com.gucardev.wallet.domain.otp.entity.UserOtp;
-import com.gucardev.wallet.domain.otp.enumeration.OtpSendingType;
+import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,9 +15,9 @@ import java.util.Optional;
 @Repository
 public interface UserOtpRepository extends JpaRepository<UserOtp, Long> {
 
-    Optional<UserOtp> findByDestinationAndTypeAndSendingType(String destination, OtpType type, OtpSendingType sendingType);
+    Optional<UserOtp> findByDestinationAndTypeAndSendingChannel(String destination, OtpType type, OtpSendingChannel sendingChannel);
 
-    boolean existsByDestinationAndTypeAndSendingType(String destination, OtpType type, OtpSendingType sendingType);
+    boolean existsByDestinationAndTypeAndSendingChannel(String destination, OtpType type, OtpSendingChannel sendingChannel);
 
     @Modifying
     @Transactional
