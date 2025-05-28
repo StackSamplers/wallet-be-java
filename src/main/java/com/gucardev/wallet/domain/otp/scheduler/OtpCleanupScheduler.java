@@ -1,4 +1,4 @@
-package com.gucardev.wallet.domain.auth.scheduler;
+package com.gucardev.wallet.domain.otp.scheduler;
 
 import com.gucardev.wallet.domain.otp.repository.UserOtpRepository;
 import lombok.RequiredArgsConstructor;
