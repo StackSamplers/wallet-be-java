@@ -30,11 +30,11 @@ public class ChangePasswordAfterValidateEmailOtpUseCase implements UseCaseWithPa
     @Override
     public void execute(ChangePasswordConfirmRequest params) {
         String email = params.getEmail();
+        var user = getUserByEmailUseCase.execute(email)
+                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION));
         if (!validateOtpUseCase.execute(new ValidateOtpRequest(params.getEmail(), OtpType.CHANGE_PASSWORD, OtpSendingType.EMAIL, params.getOtp()))) {
             throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);
         }
-        var user = getUserByEmailUseCase.execute(email)
-                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION));
         user.setPassword(bCryptPasswordEncoder.encode(params.getPassword()));
         userRepository.save(user);
     }

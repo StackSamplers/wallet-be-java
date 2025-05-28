@@ -29,16 +29,12 @@ public class ActivateUserByEmailOtpUseCase implements UseCaseWithParams<Validate
         params.setType(OtpType.REGISTER_EMAIL_VERIFICATION);
         params.setSendingType(OtpSendingType.EMAIL);
 
-        // Check if email exists in the system
-        getUserByEmailUseCase.execute(email)
-                .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, email));
+        var user = getUserByEmailUseCase.execute(email)
+                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION));
 
         if (!validateOtpUseCase.execute(params)) {
             throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);
         }
-
-        var user = getUserByEmailUseCase.execute(email)
-                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION));
 
         user.setActivated(true);
         userRepository.save(user);
