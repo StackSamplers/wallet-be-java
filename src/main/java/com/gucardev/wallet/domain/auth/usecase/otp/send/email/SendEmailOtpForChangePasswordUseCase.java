@@ -3,6 +3,7 @@ package com.gucardev.wallet.domain.auth.usecase.otp.send.email;
 import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
 import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
+import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.otp.usecase.GenerateOtpUseCase;
 import com.gucardev.wallet.domain.otp.usecase.base.AbstractSendOtpUseCase;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
 
 @Slf4j
 @Service
@@ -25,17 +27,13 @@ public class SendEmailOtpForChangePasswordUseCase extends AbstractSendOtpUseCase
     }
 
     @Override
-    protected void validateRequest(ChangePasswordRequest params) {
-        if (params == null || params.getEmail() == null) {
-            throw buildException(ExceptionMessage.NOT_FOUND_EXCEPTION);
-        }
-        // Verify user exists
-        getUserByEmailUseCase.execute(params.getEmail())
-                .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getEmail()));
-    }
-
-    @Override
     protected String extractDestination(ChangePasswordRequest params) {
+        // Verify user exists
+        var user = getUserByEmailUseCase.execute(params.getEmail())
+                .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getEmail()));
+        if (user.getActivated().equals(true)) {
+            throw buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION);
+        }
         return params.getEmail();
     }
 

@@ -1,8 +1,8 @@
-package com.gucardev.wallet.domain.auth.usecase.otp.send.email;
+package com.gucardev.wallet.domain.auth.usecase.otp.send.sms;
 
+import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
 import com.gucardev.wallet.domain.otp.enumeration.OtpSendingChannel;
 import com.gucardev.wallet.domain.otp.enumeration.OtpType;
-import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.otp.usecase.GenerateOtpUseCase;
 import com.gucardev.wallet.domain.otp.usecase.base.AbstractSendOtpUseCase;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
@@ -15,35 +15,35 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 
 @Slf4j
 @Service
-public class SendEmailOtpForRegisterUseCase extends AbstractSendOtpUseCase<RegisterOtpRequest> {
+public class SendSmsOtpForChangePasswordUseCase extends AbstractSendOtpUseCase<ChangePasswordRequest> {
 
     private final GetUserByEmailUseCase getUserByEmailUseCase;
 
-    public SendEmailOtpForRegisterUseCase(GenerateOtpUseCase generateOtpUseCase,
-                                          GetUserByEmailUseCase getUserByEmailUseCase) {
+    public SendSmsOtpForChangePasswordUseCase(GenerateOtpUseCase generateOtpUseCase,
+                                              GetUserByEmailUseCase getUserByEmailUseCase) {
         super(generateOtpUseCase);
         this.getUserByEmailUseCase = getUserByEmailUseCase;
     }
 
     @Override
-    protected String extractDestination(RegisterOtpRequest params) {
+    protected String extractDestination(ChangePasswordRequest params) {
         // Verify user exists
-        var user = getUserByEmailUseCase.execute(params.getDestination())
-                .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getDestination()));
-        if (user.getActivated().equals(true)) {
-            throw buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION);
+        var user = getUserByEmailUseCase.execute(params.getEmail())
+                .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getEmail()));
+        if (user.getPhoneNumber().isBlank()) {
+            throw buildSilentException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getEmail());
         }
-        return params.getDestination();
+        return user.getPhoneNumber();
     }
 
     @Override
     protected OtpType getOtpType() {
-        return OtpType.REGISTER_USER_VERIFICATION;
+        return OtpType.CHANGE_PASSWORD;
     }
 
     @Override
     protected OtpSendingChannel getSendingChannel() {
-        return OtpSendingChannel.EMAIL;
+        return OtpSendingChannel.SMS;
     }
 
 }

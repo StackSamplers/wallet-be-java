@@ -26,11 +26,7 @@ public class SendSmsOtpForRegisterUseCase extends AbstractSendOtpUseCase<Registe
     }
 
     @Override
-    protected void validateRequest(RegisterOtpRequest params) {
-        if (params == null || params.getDestination() == null) {
-            throw buildException(ExceptionMessage.NOT_FOUND_EXCEPTION);
-        }
-
+    protected String extractDestination(RegisterOtpRequest params) {
         // Verify user exists
         var user = getUserByEmailUseCase.execute(params.getDestination())
                 .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getDestination()));
@@ -38,13 +34,6 @@ public class SendSmsOtpForRegisterUseCase extends AbstractSendOtpUseCase<Registe
         if (user.getActivated().equals(true)) {
             throw buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION);
         }
-    }
-
-    @Override
-    protected String extractDestination(RegisterOtpRequest params) {
-        // Verify user exists
-        var user = getUserByEmailUseCase.execute(params.getDestination())
-                .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getDestination()));
         if (user.getPhoneNumber().isBlank()) {
             throw buildSilentException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getDestination());
         }

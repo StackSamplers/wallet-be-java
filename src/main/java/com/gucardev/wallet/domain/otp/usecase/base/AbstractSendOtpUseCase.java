@@ -17,8 +17,6 @@ public abstract class AbstractSendOtpUseCase<T> implements UseCaseWithParamsAndR
 
     @Override
     public OtpResponse execute(T params) {
-        // Validate the request
-        validateRequest(params);
 
         // Extract destination
         String destination = extractDestination(params);
@@ -47,7 +45,6 @@ public abstract class AbstractSendOtpUseCase<T> implements UseCaseWithParamsAndR
         return generatedOtp;
     }
 
-    protected abstract void validateRequest(T params);
     protected abstract String extractDestination(T params);
     protected abstract OtpType getOtpType();
     protected abstract OtpSendingChannel getSendingChannel();
