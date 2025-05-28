@@ -2,7 +2,7 @@ package com.gucardev.wallet.domain.auth.controller;
 
 import com.gucardev.wallet.domain.auth.model.response.*;
 import com.gucardev.wallet.domain.auth.model.request.ChangePasswordRequest;
-import com.gucardev.wallet.domain.auth.model.request.GenerateOtpRequest;
+import com.gucardev.wallet.domain.auth.model.request.GenerateEmailOtpRequest;
 import com.gucardev.wallet.domain.auth.model.request.UserRegisterRequest;
 import com.gucardev.wallet.domain.auth.model.request.ValidateOtpRequest;
 import com.gucardev.wallet.domain.auth.usecase.*;
@@ -20,8 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 @Slf4j
 @RestController
@@ -85,8 +83,8 @@ public class AuthControllerV1 {
             summary = "Generate OTP for email verification",
             description = "Generates a 6-digit OTP and sends it to the provided email. The OTP is valid for 3 minutes."
     )
-    @PostMapping("/generate-register-otp")
-    public ResponseEntity<OtpResponse> generateRegisterOtp(@Valid @RequestBody GenerateOtpRequest request) {
+    @PostMapping("/generate-register-otp-email")
+    public ResponseEntity<OtpResponse> generateRegisterOtp(@Valid @RequestBody GenerateEmailOtpRequest request) {
         sendOtpForRegisterUseCase.execute(request);
         return SuccessResponse.builder().build();
     }
@@ -95,8 +93,8 @@ public class AuthControllerV1 {
             summary = "Generate OTP for change password verification",
             description = "Generates a 6-digit OTP and sends it to the provided email. The OTP is valid for 3 minutes."
     )
-    @PostMapping("/generate-change-password-otp")
-    public ResponseEntity<OtpResponse> generateChangePasswordOtp(@Valid @RequestBody GenerateOtpRequest request) {
+    @PostMapping("/generate-change-password-otp-email")
+    public ResponseEntity<OtpResponse> generateChangePasswordOtp(@Valid @RequestBody GenerateEmailOtpRequest request) {
         sendOtpForChangePasswordUseCase.execute(request);
         return SuccessResponse.builder().build();
     }

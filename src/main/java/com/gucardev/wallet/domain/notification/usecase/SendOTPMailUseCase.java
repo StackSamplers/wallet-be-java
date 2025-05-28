@@ -23,7 +23,7 @@ public class SendOTPMailUseCase implements UseCaseWithParams<OtpEmailRequest> {
         var htmlEmailRequest = new HtmlEmailRequest("OTP Verification", params.getReceiver(), "otp-mail");
         Map<String, Object> model = new HashMap<>();
         model.put("company", "My Company");
-        model.put("otp_code", 352164);
+        model.put("otp_code", params.getOtp());
         emailSenderService.sendTemplatedHtmlEmail(htmlEmailRequest, model);
     }
 }

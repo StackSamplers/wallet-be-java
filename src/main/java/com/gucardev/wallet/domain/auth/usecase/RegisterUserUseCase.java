@@ -1,7 +1,7 @@
 package com.gucardev.wallet.domain.auth.usecase;
 
 import com.gucardev.wallet.domain.auth.enumeration.OtpType;
-import com.gucardev.wallet.domain.auth.model.request.GenerateOtpRequest;
+import com.gucardev.wallet.domain.auth.model.request.GenerateEmailOtpRequest;
 import com.gucardev.wallet.domain.auth.model.request.UserRegisterRequest;
 import com.gucardev.wallet.domain.auth.usecase.otp.SendOtpForRegisterUseCase;
 import com.gucardev.wallet.domain.user.model.request.UserCreateRequest;
@@ -22,7 +22,7 @@ public class RegisterUserUseCase implements UseCaseWithParams<UserRegisterReques
     @Override
     public void execute(UserRegisterRequest params) {
         var createdUser = createUserUseCase.execute(new UserCreateRequest(params));
-        sendOtpForRegisterUseCase.execute(new GenerateOtpRequest(createdUser.getEmail(), OtpType.REGISTER_EMAIL_VERIFICATION));
+        sendOtpForRegisterUseCase.execute(new GenerateEmailOtpRequest(createdUser.getEmail(), OtpType.REGISTER_EMAIL_VERIFICATION));
     }
 
 }

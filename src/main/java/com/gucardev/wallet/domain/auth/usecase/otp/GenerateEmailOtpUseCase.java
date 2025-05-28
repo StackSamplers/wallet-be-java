@@ -4,7 +4,7 @@ package com.gucardev.wallet.domain.auth.usecase.otp;
 import com.gucardev.wallet.domain.auth.entity.UserOtp;
 import com.gucardev.wallet.domain.auth.enumeration.OtpType;
 import com.gucardev.wallet.domain.auth.model.response.OtpResponse;
-import com.gucardev.wallet.domain.auth.model.request.GenerateOtpRequest;
+import com.gucardev.wallet.domain.auth.model.request.GenerateEmailOtpRequest;
 import com.gucardev.wallet.domain.auth.repository.UserOtpRepository;
 import com.gucardev.wallet.domain.user.usecase.GetUserByEmailUseCase;
 import com.gucardev.wallet.infrastructure.exception.ExceptionMessage;
@@ -23,7 +23,7 @@ import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class GenerateOtpUseCase implements UseCaseWithParamsAndReturn<GenerateOtpRequest, OtpResponse> {
+public class GenerateEmailOtpUseCase implements UseCaseWithParamsAndReturn<GenerateEmailOtpRequest, OtpResponse> {
 
     private final UserOtpRepository userOtpRepository;
     private final GetUserByEmailUseCase getUserByEmailUseCase;
@@ -33,7 +33,7 @@ public class GenerateOtpUseCase implements UseCaseWithParamsAndReturn<GenerateOt
 
     @Override
     @Transactional
-    public OtpResponse execute(GenerateOtpRequest params) {
+    public OtpResponse execute(GenerateEmailOtpRequest params) {
         String email = params.getEmail();
         OtpType type = params.getType();
 
