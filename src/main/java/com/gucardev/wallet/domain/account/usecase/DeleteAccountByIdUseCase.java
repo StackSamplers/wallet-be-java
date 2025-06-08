@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 
 @Slf4j
@@ -27,7 +27,7 @@ public class DeleteAccountByIdUseCase implements UseCaseWithParams<Long> {
         var authenticatedUser = getAuthenticatedUserDtoUseCase.execute();
 
         var account = accountRepository.findById(id)
-                .orElseThrow(() -> buildSilentException(ExceptionMessage.NOT_FOUND_EXCEPTION, id));
+                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION, id));
 
         // Direct ID comparison - you provide exactly which IDs to compare
         if (AuthorizationUtils.isAuthorized(
@@ -37,7 +37,7 @@ public class DeleteAccountByIdUseCase implements UseCaseWithParams<Long> {
                 Authority.DELETE_ACCOUNT)) {             // Authorities to allow
             accountRepository.softDelete(id, Constants.DEFAULT_AUDITOR);
         } else {
-            throw buildSilentException(ExceptionMessage.FORBIDDEN_EXCEPTION);
+            throw buildException(ExceptionMessage.FORBIDDEN_EXCEPTION);
         }
     }
 

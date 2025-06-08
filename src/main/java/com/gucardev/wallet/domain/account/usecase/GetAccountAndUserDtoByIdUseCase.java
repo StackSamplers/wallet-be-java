@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 @Slf4j
 @Service
@@ -29,7 +29,7 @@ public class GetAccountAndUserDtoByIdUseCase implements UseCaseWithParamsAndRetu
 
         // First get the account without deletion filter
         var account = accountRepository.findById(id, DeletedStatus.DELETED_UNKNOWN)
-                .orElseThrow(() -> buildSilentException(ExceptionMessage.NOT_FOUND_EXCEPTION, id));
+                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION, id));
 
         // Check if user can access this account (considering deletion status)
         if (!AuthorizationUtils.canAccessDeletedResource(
@@ -38,7 +38,7 @@ public class GetAccountAndUserDtoByIdUseCase implements UseCaseWithParamsAndRetu
                 authenticatedUser.getId(),
                 account.getUser().getId())) {
 
-            throw buildSilentException(ExceptionMessage.NOT_FOUND_EXCEPTION, id);
+            throw buildException(ExceptionMessage.NOT_FOUND_EXCEPTION, id);
         }
 
         return accountMapper.toDtoWithUser(account);

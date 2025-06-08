@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 @Slf4j
 @Service
@@ -32,10 +32,10 @@ public class SendSmsOtpForRegisterUseCase extends AbstractSendOtpUseCase<Registe
                 .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getDestination()));
 
         if (user.getActivated().equals(true)) {
-            throw buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION);
+            throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);
         }
         if (user.getPhoneNumber().isBlank()) {
-            throw buildSilentException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getDestination());
+            throw buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getDestination());
         }
         return user.getPhoneNumber();
     }

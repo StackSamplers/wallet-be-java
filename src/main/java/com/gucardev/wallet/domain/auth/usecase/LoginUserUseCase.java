@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import static com.gucardev.wallet.infrastructure.exception.ExceptionMessage.*;
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 @Slf4j
 @Service
@@ -55,7 +55,7 @@ public class LoginUserUseCase implements UseCaseWithParamsAndReturn<LoginRequest
 
         if (userOptional.isEmpty()) {
             log.warn("Authentication failed: User not found for email: {}", email);
-            throw buildSilentException(WRONG_CREDENTIALS_EXCEPTION);
+            throw buildException(WRONG_CREDENTIALS_EXCEPTION);
         }
 
         User user = userOptional.get();
@@ -63,12 +63,12 @@ public class LoginUserUseCase implements UseCaseWithParamsAndReturn<LoginRequest
         // Check if account is activated
         if (!user.getActivated()) {
             log.warn("Authentication failed: Account not activated for email: {}", email);
-            throw buildSilentException(ACCOUNT_LOCKED);
+            throw buildException(ACCOUNT_LOCKED);
         }
 
         // General authentication failure
         log.warn("Authentication failed: Invalid credentials for email: {}", email);
-        throw buildSilentException(ACCESS_DENIED_EXCEPTION);
+        throw buildException(WRONG_CREDENTIALS_EXCEPTION);
     }
 
     private Authentication authenticateUser(LoginRequest loginRequest) {

@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 
 @Slf4j
@@ -27,7 +27,7 @@ public class CreateUserUseCase implements UseCaseWithParamsAndReturn<UserCreateR
     public UserDto execute(UserCreateRequest params) {
 
         if (userRepository.existsByEmailIgnoreCase(params.getEmail())) {
-            throw buildSilentException(ExceptionMessage.ALREADY_EXISTS_EXCEPTION, params.getEmail());
+            throw buildException(ExceptionMessage.ALREADY_EXISTS_EXCEPTION, params.getEmail());
         }
         var newUser = userMapper.toEntity(params);
         newUser.setActivated(false);

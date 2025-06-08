@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 @Slf4j
 @Service
@@ -31,7 +31,7 @@ public class SendSmsOtpForChangePasswordUseCase extends AbstractSendOtpUseCase<C
         var user = getUserByEmailUseCase.execute(params.getEmail())
                 .orElseThrow(() -> buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getEmail()));
         if (user.getPhoneNumber().isBlank()) {
-            throw buildSilentException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getEmail());
+            throw buildException(ExceptionMessage.USER_NOT_FOUND_EXCEPTION, params.getEmail());
         }
         return user.getPhoneNumber();
     }

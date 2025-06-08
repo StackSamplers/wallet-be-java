@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
+
 
 @Slf4j
 @Service
@@ -30,13 +31,13 @@ public class ActivateUserBySmsOtpUseCase implements UseCaseWithParams<ValidateOt
         params.setSendingChannel(OtpSendingChannel.SMS);
 
         var user = getUserByEmailUseCase.execute(email)
-                .orElseThrow(() -> buildSilentException(ExceptionMessage.NOT_FOUND_EXCEPTION));
+                .orElseThrow(() -> buildException(ExceptionMessage.NOT_FOUND_EXCEPTION));
 
         // set destination as phone number
         params.setDestination(user.getPhoneNumber());
 
         if (!validateOtpUseCase.execute(params)) {
-            throw buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION);
+            throw buildException(ExceptionMessage.INVALID_OTP_EXCEPTION);
         }
 
         user.setActivated(true);

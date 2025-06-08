@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 
 @Slf4j
@@ -32,7 +32,7 @@ public class ValidateOtpUseCase implements UseCaseWithParamsAndReturn<ValidateOt
 
         // Find OTP for the provided destination
         UserOtp userOtp = userOtpRepository.findByDestinationAndTypeAndSendingChannel(destination, type, sendingChannel)
-                .orElseThrow(() -> buildSilentException(ExceptionMessage.INVALID_OTP_EXCEPTION));
+                .orElseThrow(() -> buildException(ExceptionMessage.INVALID_OTP_EXCEPTION));
 
         // Check if OTP is expired
         if (userOtp.isExpired()) {

@@ -19,6 +19,7 @@ import com.gucardev.wallet.domain.auth.usecase.token.GenerateTokenByRefreshToken
 import com.gucardev.wallet.domain.otp.model.request.RegisterOtpRequest;
 import com.gucardev.wallet.domain.otp.model.response.OtpResponse;
 import com.gucardev.wallet.domain.user.model.response.UserDto;
+import com.gucardev.wallet.infrastructure.response.ApiResponse;
 import com.gucardev.wallet.infrastructure.response.SuccessResponse;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,7 +58,7 @@ public class AuthControllerV1 {
     @RateLimiter(name = "loginRateLimiter")
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest) {
-        return SuccessResponse.builder()
+        return ApiResponse.success("messages.default.success")
                 .body(loginUserUseCase.execute(loginRequest))
                 .build();
     }
@@ -69,7 +70,7 @@ public class AuthControllerV1 {
     @RateLimiter(name = "loginRateLimiter")
     @PostMapping("/token/refresh")
     public ResponseEntity<TokenDto> refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
-        return SuccessResponse.builder()
+        return ApiResponse.success()
                 .body(generateTokenByRefreshTokenUseCase.execute(refreshTokenRequest))
                 .build();
     }

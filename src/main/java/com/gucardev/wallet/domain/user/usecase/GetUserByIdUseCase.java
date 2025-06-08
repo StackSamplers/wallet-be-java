@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildSilentException;
+import static com.gucardev.wallet.infrastructure.exception.helper.ExceptionUtil.buildException;
 
 @Slf4j
 @Service
@@ -29,7 +29,7 @@ public class GetUserByIdUseCase implements UseCaseWithParamsAndReturn<Long, Opti
         if (result.isPresent()) {
             return result.get();
         }
-        throw buildSilentException(ExceptionMessage.NOT_FOUND_EXCEPTION, id);
+        throw buildException(ExceptionMessage.NOT_FOUND_EXCEPTION, id);
     }
 
 }

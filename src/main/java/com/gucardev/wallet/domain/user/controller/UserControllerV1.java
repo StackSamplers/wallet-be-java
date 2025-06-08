@@ -11,6 +11,7 @@ import com.gucardev.wallet.domain.user.usecase.CreateUserUseCase;
 import com.gucardev.wallet.domain.user.usecase.GetUserByIdUseCase;
 import com.gucardev.wallet.domain.user.usecase.SearchUsersUseCase;
 import com.gucardev.wallet.domain.user.usecase.UpdateUserUseCase;
+import com.gucardev.wallet.infrastructure.response.ApiResponse;
 import com.gucardev.wallet.infrastructure.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -44,7 +45,7 @@ public class UserControllerV1 {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserCreateRequest userCreateRequest) {
-        return SuccessResponse.builder().body(createUserUseCase.execute(userCreateRequest)).build();
+        return ApiResponse.success().body(createUserUseCase.execute(userCreateRequest)).build();
     }
 
     @Operation(

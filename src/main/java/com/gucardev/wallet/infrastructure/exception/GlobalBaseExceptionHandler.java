@@ -3,8 +3,7 @@ package com.gucardev.wallet.infrastructure.exception;
 import com.gucardev.wallet.infrastructure.config.message.MessageUtil;
 import com.gucardev.wallet.infrastructure.exception.helper.BaseExceptionHandler;
 import com.gucardev.wallet.infrastructure.exception.model.ClientRequestException;
-import com.gucardev.wallet.infrastructure.exception.model.CustomException;
-import com.gucardev.wallet.infrastructure.exception.model.ExceptionResponse;
+import com.gucardev.wallet.infrastructure.exception.model.BusinessException;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.PersistenceException;
@@ -31,17 +30,14 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalBaseExceptionHandler extends BaseExceptionHandler {
 
-    @ExceptionHandler({CustomException.class})
-    public ResponseEntity<ExceptionResponse> handleCustomException(CustomException exception, WebRequest request) {
-        // Check if we should log the stack trace for this exception
-        if (exception.isLogStackTrace()) {
-            log.error("Custom exception occurred: ", exception);
-        }
+    @ExceptionHandler({BusinessException.class})
+    public ResponseEntity<Object> handleCustomException(BusinessException exception, WebRequest request) {
+        log.warn("Custom exception occurred: {}", exception.getLocalizedMessage());
         return this.buildErrorResponse(exception.getMessage(), exception.getStatus(), request, exception.getBusinessErrorCode());
     }
 
     @ExceptionHandler(ClientRequestException.class)
-    public ResponseEntity<ExceptionResponse> clientRequestException(ClientRequestException exception, WebRequest request) {
+    public ResponseEntity<Object> clientRequestException(ClientRequestException exception, WebRequest request) {
         if (exception.isLogStackTrace()) {
             log.error("Client request exception occurred: ", exception);
         } else {
@@ -52,21 +48,21 @@ public class GlobalBaseExceptionHandler extends BaseExceptionHandler {
     }
 
     @ExceptionHandler({NoResourceFoundException.class})
-    public ResponseEntity<ExceptionResponse> noResourceFoundException(NoResourceFoundException exception, WebRequest request) {
+    public ResponseEntity<Object> noResourceFoundException(NoResourceFoundException exception, WebRequest request) {
         log.warn("Resource not found: {}", exception.getMessage());
         HttpStatus status = HttpStatus.NOT_FOUND;
         return this.buildErrorResponse(exception.getMessage(), status, request, ExceptionMessage.NOT_FOUND_EXCEPTION.getBusinessErrorCode());
     }
 
     @ExceptionHandler({RequestNotPermitted.class})
-    public ResponseEntity<ExceptionResponse> requestNotPermittedException(RequestNotPermitted exception, WebRequest request) {
+    public ResponseEntity<Object> requestNotPermittedException(RequestNotPermitted exception, WebRequest request) {
         log.warn("request not permitted, too many requests: {}", exception.getMessage());
         HttpStatus status = HttpStatus.TOO_MANY_REQUESTS;
         return this.buildErrorResponse(exception.getMessage(), status, request, ExceptionMessage.TOO_MANY_REQUESTS_EXCEPTION.getBusinessErrorCode());
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    public final ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidEx(
+    public final ResponseEntity<Object> handleMethodArgumentNotValidEx(
             MethodArgumentNotValidException ex, WebRequest request) {
         Map<String, String> errors = extractFieldErrors(ex);
         log.warn("Validation failed: {}", errors);
@@ -80,12 +76,12 @@ public class GlobalBaseExceptionHandler extends BaseExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ExceptionResponse> handleAccessDeniedException(AccessDeniedException exception, WebRequest request) {
+    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException exception, WebRequest request) {
         return this.buildErrorResponse(exception.getMessage(), HttpStatus.FORBIDDEN, request);
     }
 
     @ExceptionHandler({ConstraintViolationException.class})
-    public final ResponseEntity<ExceptionResponse> handleConstraintViolationEx(
+    public final ResponseEntity<Object> handleConstraintViolationEx(
             ConstraintViolationException ex, WebRequest request) {
         Map<String, String> errors = extractConstraintViolations(ex);
         log.warn("Constraint violation: {}", errors);
@@ -99,7 +95,7 @@ public class GlobalBaseExceptionHandler extends BaseExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public final ResponseEntity<ExceptionResponse> handleHttpMessageNotReadableException(
+    public final ResponseEntity<Object> handleHttpMessageNotReadableException(
             HttpMessageNotReadableException ex, WebRequest request) {
         String errorMessage = MessageUtil.getMessage("error.request.body.missing");
         log.warn("Message not readable: {}", ex.getMessage());
@@ -112,7 +108,7 @@ public class GlobalBaseExceptionHandler extends BaseExceptionHandler {
     }
 
     @ExceptionHandler({Exception.class})
-    public final ResponseEntity<ExceptionResponse> handleAllException(Exception ex, WebRequest request) {
+    public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
         String message;
         int errorCode;
         if (isDatabaseException(ex)) {
@@ -120,7 +116,10 @@ public class GlobalBaseExceptionHandler extends BaseExceptionHandler {
             message = "database.error";
         } else {
             log.error("Exception occurred: ", ex);
-            message = "default.error";
+//            message = "default.error";
+            message = ex.getLocalizedMessage();
+            errorCode = ExceptionMessage.UNEXPECTED_EXCEPTION.getBusinessErrorCode();
+            return this.buildErrorResponse(message, HttpStatus.BAD_REQUEST, request, errorCode);
         }
         errorCode = ExceptionMessage.DEFAULT_EXCEPTION.getBusinessErrorCode();
         return this.buildErrorResponse(MessageUtil.getMessage(message), HttpStatus.BAD_REQUEST, request, errorCode);

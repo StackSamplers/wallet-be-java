@@ -1,7 +1,7 @@
 package com.gucardev.wallet.infrastructure.config.aspect;
 
 import com.gucardev.wallet.infrastructure.exception.model.ClientRequestException;
-import com.gucardev.wallet.infrastructure.exception.model.CustomException;
+import com.gucardev.wallet.infrastructure.exception.model.BusinessException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -89,8 +89,8 @@ public class AopLoggingHandler {
      * Limits loggable exception stack traces to those that don't explicitly opt out (via isLogStackTrace()).
      */
     private boolean shouldLogStackTrace(Throwable e) {
-        if (e instanceof CustomException cex) {
-            return !cex.isLogStackTrace();
+        if (e instanceof BusinessException cex) {
+            return false;
         }
         if (e instanceof ClientRequestException crex) {
             return !crex.isLogStackTrace();
